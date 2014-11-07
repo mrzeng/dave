@@ -1,0 +1,19 @@
+<path>
+  <name>modzila</name>
+  <paths>
+    <path>
+      <name>jspringbot</name>
+      <paths>
+        <path>
+          <name>jspringbot-selenium</name>
+        </path>
+      </paths>
+    </path>
+    <path>
+      <name>dave</name>
+    </path>
+    <path>
+      <name>alex</name>
+    </path>
+  </paths>
+</path>

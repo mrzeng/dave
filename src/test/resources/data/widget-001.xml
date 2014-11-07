@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<table>
+  <id>widget-001</id>
+  <name>质量总览</name>
+  <description>项目质量总览</description>
+  <datasource>mysql</datasource>
+  <hostname>192.168.14.189</hostname>
+  <port>3306</port>
+  <username>root</username>
+  <password>root</password>
+  <sql>select 1</sql>
+</table>

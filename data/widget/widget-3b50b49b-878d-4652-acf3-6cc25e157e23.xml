@@ -1,0 +1,12 @@
+<chart>
+  <id>widget-3b50b49b-878d-4652-acf3-6cc25e157e23</id>
+  <name>Temperature bar chart</name>
+  <description></description>
+  <datasource>MySQL</datasource>
+  <hostname>localhost</hostname>
+  <port>3306</port>
+  <username>root</username>
+  <password>root</password>
+  <sql>SELECT * FROM `test`.`Temperature`</sql>
+  <type>bar</type>
+</chart>

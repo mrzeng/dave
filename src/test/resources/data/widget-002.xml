@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<chart>
+  <id>widget-002</id>
+  <name>构建数</name>
+  <description>构建数</description>
+  <type>pie</type>
+  <datasource>mysql</datasource>
+  <hostname>192.168.14.189</hostname>
+  <port>3306</port>
+  <username>root</username>
+  <password>root</password>
+  <sql>select 1</sql>
+</chart>

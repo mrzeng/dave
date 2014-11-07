@@ -1,0 +1,11 @@
+<table>
+  <id>widget-f412f11e-c130-4a41-8822-7718e870ab09</id>
+  <name>Temperature table</name>
+  <description>temperature table</description>
+  <datasource>MySQL</datasource>
+  <hostname>localhost</hostname>
+  <port>3306</port>
+  <username>root</username>
+  <password>root</password>
+  <sql>SELECT * FROM `test`.`Temperature`</sql>
+</table>

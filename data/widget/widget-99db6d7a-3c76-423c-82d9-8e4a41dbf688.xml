@@ -1,0 +1,12 @@
+<chart>
+  <id>widget-99db6d7a-3c76-423c-82d9-8e4a41dbf688</id>
+  <name>Temperature pie chart</name>
+  <description></description>
+  <datasource>MySQL</datasource>
+  <hostname>localhost</hostname>
+  <port>3306</port>
+  <username>root</username>
+  <password>root</password>
+  <sql>SELECT * FROM `test`.`Temperature`</sql>
+  <type>pie</type>
+</chart>

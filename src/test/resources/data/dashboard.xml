@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<dashboard>
+  <widgets>
+    <widget>
+      <id>widget-001</id>
+      <width>col-md-12</width>
+      <type>table</type>
+    </widget>
+    <widget>
+      <id>widget-002</id>
+      <width>col-md-6</width>
+      <type>chart</type>
+    </widget>
+  </widgets>
+</dashboard>

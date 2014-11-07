@@ -1,0 +1,19 @@
+<dashboard>
+  <widgets>
+    <widget>
+      <id>widget-f412f11e-c130-4a41-8822-7718e870ab09</id>
+      <type>table</type>
+      <width>col-md-12</width>
+    </widget>
+    <widget>
+      <id>widget-3b50b49b-878d-4652-acf3-6cc25e157e23</id>
+      <type>chart</type>
+      <width>col-md-6</width>
+    </widget>
+    <widget>
+      <id>widget-99db6d7a-3c76-423c-82d9-8e4a41dbf688</id>
+      <type>chart</type>
+      <width>col-md-6</width>
+    </widget>
+  </widgets>
+</dashboard>
