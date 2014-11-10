@@ -1,12 +1,27 @@
 <chart>
   <id>widget-3b50b49b-878d-4652-acf3-6cc25e157e23</id>
-  <name>Temperature bar chart</name>
+  <name>各部门总收入对比</name>
   <description></description>
   <datasource>MySQL</datasource>
   <hostname>localhost</hostname>
   <port>3306</port>
   <username>root</username>
   <password>root</password>
-  <sql>SELECT * FROM `test`.`Temperature`</sql>
+  <sql>SELECT
+  SUBSTRING(team, LENGTH(&apos;${team_full_path}/&apos;) + 1) AS `团队名`,
+  SUM(expenses) AS `总收入`,
+  SUM(revenue) AS `总支出`
+FROM
+  test.FINANCE
+WHERE
+  team LIKE &apos;${team_full_path}/%&apos;
+    AND
+  team NOT LIKE &apos;${team_full_path}/%/%&apos;
+    AND
+  create_time &gt;= &apos;${start_date}&apos;
+    AND
+  create_time &lt; &apos;${end_date}&apos;
+GROUP BY
+  team</sql>
   <type>bar</type>
 </chart>

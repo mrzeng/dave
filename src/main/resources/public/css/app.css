@@ -432,3 +432,8 @@ span.input-group-addon {
   width: 40px;
   padding-left: 13px;
 }
+
+div.panel-default.panel-heading {
+  background-color: #fff;
+  border-bottom: 3px solid #999;
+}

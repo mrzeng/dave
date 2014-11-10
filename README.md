@@ -9,7 +9,7 @@ dave
 
 ```
 use test
-source src/main/resources/sqls/temperature.sql
+source src/main/resources/sqls/FINANCE.sql
 ```
 
 ### 运行

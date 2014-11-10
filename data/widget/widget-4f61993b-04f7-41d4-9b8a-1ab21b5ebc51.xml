@@ -1,6 +1,6 @@
-<chart>
-  <id>widget-99db6d7a-3c76-423c-82d9-8e4a41dbf688</id>
-  <name>总收入/总支出对比</name>
+<table>
+  <id>widget-4f61993b-04f7-41d4-9b8a-1ab21b5ebc51</id>
+  <name>财务报表</name>
   <description></description>
   <datasource>MySQL</datasource>
   <hostname>localhost</hostname>
@@ -8,9 +8,9 @@
   <username>root</username>
   <password>root</password>
   <sql>SELECT
-  &apos;${team_full_path}&apos; AS `团队名`,
-  SUM(expenses) AS `总收入`,
-  SUM(revenue) AS `总支出`
+  SUBSTRING(team, LENGTH(&apos;${team_full_path}/&apos;) + 1) AS `团队名`,
+  sum(revenue) AS `收入`,
+  sum(expenses) AS `支出`
 FROM
   test.FINANCE
 WHERE
@@ -20,6 +20,6 @@ WHERE
     AND
   create_time &gt;= &apos;${start_date}&apos;
     AND
-  create_time &lt; &apos;${end_date}&apos;</sql>
-  <type>pie</type>
-</chart>
+  create_time &lt; &apos;${end_date}&apos;
+group by team</sql>
+</table>

@@ -1,9 +1,19 @@
 <dashboard>
   <widgets>
     <widget>
-      <id>widget-f412f11e-c130-4a41-8822-7718e870ab09</id>
+      <id>widget-4f61993b-04f7-41d4-9b8a-1ab21b5ebc51</id>
       <type>table</type>
       <width>col-md-12</width>
+    </widget>
+    <widget>
+      <id>widget-1f7d601f-c948-48dc-99c0-8fc776ea902f</id>
+      <type>chart</type>
+      <width>col-md-6</width>
+    </widget>
+    <widget>
+      <id>widget-67d0a1e3-3464-4b52-a6f8-751cbfe8df85</id>
+      <type>chart</type>
+      <width>col-md-6</width>
     </widget>
     <widget>
       <id>widget-3b50b49b-878d-4652-acf3-6cc25e157e23</id>
