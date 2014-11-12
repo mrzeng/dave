@@ -10,11 +10,10 @@
 
     <link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
     <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="assets/daterangepicker-1.3.8/daterangepicker-bs3.css">
-    <link rel="stylesheet" href="assets/icheck-1.0.2/blue.css" type="text/css">
+    <link rel="stylesheet" href="assets/bootstrap-modal-2.2.5/css/bootstrap-modal-bs3patch.css" type="text/css">
+    <link rel="stylesheet" href="assets/bootstrap-modal-2.2.5/css/bootstrap-modal.css" type="text/css">
     <link href="css/app.css" rel="stylesheet">
     <link href="css/app-responsive.css" rel="stylesheet">
-    <link href="css/uploadfile.css" rel="stylesheet">
 
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -27,8 +26,10 @@
     <div id="container">
       <header class="header">
         <div class="sidebar-toggle-box">
-          <div class="fa fa-bars tooltips" data-placement="bottom" data-original-title="展开选项"></div>
+          <div class="fa fa-dashboard">
+          </div>
         </div>
+
         <a href="index.html" class="logo">
           <b>Dave</b>
         </a>
@@ -49,87 +50,111 @@
         </div>
       </header>
 
-      <div id="sidebar" class="nav-collapse" style="display:none">
-        <ul class="sidebar-menu" id="nav-accordion">
-          <li class="sub-menu">
-            <a class="active" href="index.html">
-              <i class="fa fa-dashboard"></i>
-              <span>首页</span>
-              <i class="fa fa-check pull-right"></i>
-            </a>
-          </li>
-          <li class="sub-menu">
-            <a href="javascript:;" >
-              <i class="fa fa-cogs"></i>
-              <span>组件</span>
-              <i class="fa fa-caret-down pull-right" style="margin-right: 5px;"></i>
-            </a>
-            <ul class="sub">
-              <li>
-                <a href="javascript:void(0);" class="dave-widget-table">
-                  <i class="fa fa-table"></i>
-                  <span>表格</span>
-                </a>
-              </li>
-              <li>
-                <a href="javascript:void(0);" class="dave-widget-chart">
-                  <i class="fa fa-bar-chart-o"></i>
-                  <span>图表</span>
-                </a>
-              </li>
-            </ul>
-          </li>
-        </ul>
-      </div>
-
       <div id="main-content">
-        <div class="nav-wrapper">
-          <div class="row">
-            <div class="col-md-12">
-              <nav>
-                <div class="container-fluid">
-                  <div class="navbar-header">
-                    <span class="fa fa-home"></span>
-                  </div>
-                  <div>
-                    <ol id="team" class="breadcrumb pull-left">
-                    </ol>
-                  </div>
-                  <div>
-                    <ul class="nav navbar-nav pull-right">
-                      <li>
-                        <div class="selectbox" id="date-range">
-                          <i class="fa fa-calendar"></i>
-                          <span></span>
-                          <b class="caret"></b>
-                        </div>
-                      </li>
-                    </ul>
+        <div class="content-wrapper" style="margin-top: 0px;">
+          <div id="content-title">
+            <h3>Dashboard Directory</h3>
+            <span>可被访问的dashboard集合</span>
+          </div>
+          <div class="paginate">
+            <a href="">前一页</a>
+            <span>/</span>
+            <a href="">后一页</a>
+            <div class="pull-right">
+              <span>显示</span>
+              <span>0</span>
+              <span>-</span>
+              <span>40</span>
+            </div>
+          </div>
+          <div class="dashboards">
+            <div class="row">
+              <div class="col-md-3">
+                <div class="panel panel-default">
+                  <div id="add-dashboard">
+                    <div class="fa fa-plus">
+                    </div>
                   </div>
                 </div>
-              </nav>
+              </div>
+              <div class="col-md-3">
+                <div class="panel panel-default">
+                  <div class="panel-body">
+                    <div>Finance</div>
+                    <div style="color: #aaa">2014-11-08</div>
+                    <div style="padding-top: 5px;">各部门团队财务报表分析</div>
+                    <div style="padding-top: 5px;">
+                      <button class="btn btn-sm btn-info">查看</button>
+                      <button class="btn btn-sm btn-success">编辑</button>
+                      <button class="btn btn-sm btn-danger btn-delete">删除</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
+      </div>
+    </div>
 
-        <div class="content-wrapper ui-sortable">
+    <div class="modal fade" id="modal-delete-dashboard" role="dialog"
+         aria-hidden="false" data-keyboard="false" data-backdrop="static">
+      <div class="modal-header">
+        <span>提示</span>
+      </div>
+      <div class="modal-body" style="text-align: center">
+        <div style="margin-bottom: 20px;">确认删除吗？（删除后将无法找回）</div>
+        <div>
+          <button class="btn btn-sm btn-warning btn-delete-cancel">取消</button>
+          <button class="btn btn-sm btn-danger btn-delete-sure">确定</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal fade" id="modal-new-dashboard" role="dialog"
+         aria-hidden="false" data-keyboard="false" data-backdrop="static">
+      <div class="modal-header">
+        <h4>新建dashboard</h4>
+      </div>
+      <div class="modal-body" style="text-align:center;">
+        <div class="form-horizontal">
+          <div class="form-group">
+            <label class="col-sm-2 control-label">名称</label>
+            <div class="col-sm-10">
+              <input id="dashboard-name" type="text" class="form-control" data-required="true">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-2 control-label">类别</label>
+            <div class="col-sm-10">
+              <select id="dashboard-category" class="form-control" data-label="datasource">
+                <option value="财务">财务</option>
+                <option value="股票">股票</option>
+                <option value="科学">科学</option>
+                <option value="其他">其他</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-2 control-label">描述</label>
+            <div class="col-sm-10">
+              <textarea id="dashboard-description" cols="10" rows="2" class="form-control"></textarea>
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="pull-right" style="margin-right: 15px;">
+              <button class="btn btn-warning btn-cancel" style="margin-right: 10px">取消</button>
+              <button class="btn btn-primary btn-sure">确定</button>
+            </div>
+          </div>
         </div>
       </div>
     </div>
 
     <script type="text/javascript" src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
-    <script type="text/javascript" src="http://code.jquery.com/ui/1.11.0/jquery-ui.min.js"></script>
     <script type="text/javascript" src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="http://code.highcharts.com/highcharts.js"></script>
-    <script type="text/javascript" src="assets/moment-2.7.0/moment.min.js"></script>
-    <script type="text/javascript" src="assets/daterangepicker-1.3.8/daterangepicker.js"></script>
-    <script src="assets/icheck-1.0.2/icheck.min.js"></script>
-    <script type="text/javascript" src="assets/jquery-plugin/jquery.dcjqaccordion.2.7.js"></script>
-    <script type="text/javascript" src="assets/jquery-plugin/jquery.scrollTo.min.js"></script>
-    <script type="text/javascript" src="assets/jquery-plugin/jquery.pin.min.js"></script>
-    <script type="text/javascript" src="assets/jquery-plugin/jquery.uploadfile.min.js"></script>
-    <script type="text/javascript" src="assets/jquery-plugin/jquery.parsequery.min.js"></script>
-    <script type="text/javascript" src="js/common.js"></script>
-    <script type="text/javascript" src="js/App.js"></script>
+    <script src="assets/bootstrap-modal-2.2.5/js/bootstrap-modalmanager.js"></script>
+    <script src="assets/bootstrap-modal-2.2.5/js/bootstrap-modal.js"></script>
+    <script type="text/javascript" src="js/dashboards.js"></script>
   </body>
 </html>

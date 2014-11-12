@@ -1,0 +1,32 @@
+<dashboard>
+  <name>Finance</name>
+  <date>2014-11-08</date>
+  <description>各部门团队财务报表分析</description>
+  <widgets>
+    <widget>
+      <id>widget-4f61993b-04f7-41d4-9b8a-1ab21b5ebc51</id>
+      <type>table</type>
+      <width>col-md-12</width>
+    </widget>
+    <widget>
+      <id>widget-1f7d601f-c948-48dc-99c0-8fc776ea902f</id>
+      <type>chart</type>
+      <width>col-md-6</width>
+    </widget>
+    <widget>
+      <id>widget-67d0a1e3-3464-4b52-a6f8-751cbfe8df85</id>
+      <type>chart</type>
+      <width>col-md-6</width>
+    </widget>
+    <widget>
+      <id>widget-3b50b49b-878d-4652-acf3-6cc25e157e23</id>
+      <type>chart</type>
+      <width>col-md-6</width>
+    </widget>
+    <widget>
+      <id>widget-99db6d7a-3c76-423c-82d9-8e4a41dbf688</id>
+      <type>chart</type>
+      <width>col-md-6</width>
+    </widget>
+  </widgets>
+</dashboard>

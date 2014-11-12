@@ -28,6 +28,10 @@ public class DashBoardLocalXmlDaoImpl implements DashBoardDao {
         this.dashboardHome = dashboardHome;
     }
 
+    public void add(DashBoard dashboard) throws IOException {
+        dump(dashboard, dashboard.getName());
+    }
+
     public DashBoard load(String path) {
         File xml = new File(dashboardHome, String.format("%s.xml", path));
         if (xml.isFile()) {

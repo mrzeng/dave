@@ -1,5 +1,6 @@
 package org.modzila.dave.controller;
 
+import java.util.Date;
 import org.modzila.dave.bo.UUIDBo;
 import org.modzila.dave.dao.DashBoardDao;
 import org.modzila.dave.dao.WidgetDao;
@@ -19,7 +20,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
-@RequestMapping(value = "/api/dashboard/{path}")
+@RequestMapping(value = "/api/dashboard")
 public class DashBoardController {
 
     @Autowired
@@ -35,7 +36,26 @@ public class DashBoardController {
 
     private static final Logger LOG = LoggerFactory.getLogger(DashBoardController.class);
 
-    @RequestMapping(value = "/layout", method = RequestMethod.GET)
+    @RequestMapping(value = "/add", method = RequestMethod.POST)
+    @ResponseBody
+    public Result addDashboard(@RequestParam("name") String name,
+            @RequestParam("category") String category,
+            @RequestParam("description") String description) {
+        try {
+            DashBoard dashboard = new DashBoard();
+            dashboard.setName(name);
+            dashboard.setDate(new Date());
+            dashboard.setCategory(category);
+            dashboard.setDescription(description);
+            dashboardDao.add(dashboard);
+            return new Result(dashboard.getDate());
+        } catch (Exception ex) {
+            LOG.error("Exception:", ex);
+            return new Result(true, String.valueOf(ex));
+        }
+    }
+
+    @RequestMapping(value = "/{path}/layout", method = RequestMethod.GET)
     @ResponseBody
     public Result getWidgets(@PathVariable String path) {
         try {
@@ -47,7 +67,7 @@ public class DashBoardController {
         }
     }
 
-    @RequestMapping(value = "/layout/{widgetId}/update", method = RequestMethod.POST)
+    @RequestMapping(value = "/{path}/layout/{widgetId}/update", method = RequestMethod.POST)
     @ResponseBody
     public Result updateWidgets(@PathVariable String path,
             @PathVariable String widgetId,
@@ -63,7 +83,7 @@ public class DashBoardController {
         }
     }
 
-    @RequestMapping(value = "/widget/add", method = RequestMethod.POST)
+    @RequestMapping(value = "/{path}/widget/add", method = RequestMethod.POST)
     @ResponseBody
     public synchronized Result addWidget(@PathVariable String path,
             @RequestParam("type") String type,
@@ -82,7 +102,7 @@ public class DashBoardController {
         }
     }
 
-    @RequestMapping(value = "/widget/{widgetId}/remove", method = RequestMethod.POST)
+    @RequestMapping(value = "/{path}/widget/{widgetId}/remove", method = RequestMethod.POST)
     @ResponseBody
     public Result removeWidget(@PathVariable String path,
             @PathVariable String widgetId) {
