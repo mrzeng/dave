@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
+import org.modzila.dave.model.DashBoardList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
@@ -30,15 +31,16 @@ public class DashBoardLocalXmlDaoImpl implements DashBoardDao {
         this.dashboardHome = dashboardHome;
     }
 
-    public List<DashBoard> list(int startId, int endId) throws IOException {
+    public DashBoardList list(int iDisplayStart, int iDisplayLength) throws IOException {
         List<DashBoard> dashboards = new ArrayList<DashBoard>();
         File dir = new File(dashboardHome);
         File[] files = dir.listFiles();
-        for (int i = startId - 1; i < endId && i < files.length; ++i) {
+        int iDisplayEnd = iDisplayStart + iDisplayLength;
+        for (int i = iDisplayStart - 1; i < iDisplayEnd && i < files.length; ++i) {
             File file = files[i];
             dashboards.add(load(file));
         }
-        return dashboards;
+        return new DashBoardList(dashboards, files.length);
     }
  
     public void add(DashBoard dashboard) throws IOException {

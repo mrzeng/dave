@@ -38,10 +38,11 @@ public class DashBoardController {
 
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     @ResponseBody
-    public Result listDashboard(@RequestParam("sid") int startId,
-            @RequestParam("eid") int endId) {
+    public Result listDashboard(
+            @RequestParam("iDisplayStart") int iDisplayStart,
+            @RequestParam("iDisplayLength") int iDisplayLength) {
         try {
-            return new Result(dashboardDao.list(startId, endId));
+            return new Result(dashboardDao.list(iDisplayStart, iDisplayLength));
         } catch (Exception ex) {
             LOG.error("Exception:", ex);
             return new Result(true, String.valueOf(ex));
