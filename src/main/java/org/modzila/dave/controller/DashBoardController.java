@@ -36,6 +36,18 @@ public class DashBoardController {
 
     private static final Logger LOG = LoggerFactory.getLogger(DashBoardController.class);
 
+    @RequestMapping(value = "/list", method = RequestMethod.GET)
+    @ResponseBody
+    public Result listDashboard(@RequestParam("sid") int startId,
+            @RequestParam("eid") int endId) {
+        try {
+            return new Result(dashboardDao.list(startId, endId));
+        } catch (Exception ex) {
+            LOG.error("Exception:", ex);
+            return new Result(true, String.valueOf(ex));
+        }
+    }
+
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     @ResponseBody
     public Result addDashboard(@RequestParam("name") String name,

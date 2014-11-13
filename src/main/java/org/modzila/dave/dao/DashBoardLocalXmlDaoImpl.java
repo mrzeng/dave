@@ -7,6 +7,8 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.util.ArrayList;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
@@ -28,17 +30,32 @@ public class DashBoardLocalXmlDaoImpl implements DashBoardDao {
         this.dashboardHome = dashboardHome;
     }
 
+    public List<DashBoard> list(int startId, int endId) throws IOException {
+        List<DashBoard> dashboards = new ArrayList<DashBoard>();
+        File dir = new File(dashboardHome);
+        File[] files = dir.listFiles();
+        for (int i = startId - 1; i < endId && i < files.length; ++i) {
+            File file = files[i];
+            dashboards.add(load(file));
+        }
+        return dashboards;
+    }
+ 
     public void add(DashBoard dashboard) throws IOException {
         dump(dashboard, dashboard.getName());
     }
 
     public DashBoard load(String path) {
         File xml = new File(dashboardHome, String.format("%s.xml", path));
+        return load(xml);
+    }
+
+    DashBoard load(File xml) {
         if (xml.isFile()) {
             DashBoard dashboard = (DashBoard) xstream.fromXML(xml);
             return dashboard;
         }
-        return new DashBoard();
+        return null;
     }
 
     public void dump(DashBoard dashboard, String path) throws IOException {
