@@ -164,6 +164,10 @@ a.logo span {
   margin-left: 0px;
 }
 
+#main-content {
+  min-height: 550px;
+}
+
 .sidebar-closed #sidebar {
   margin-left: -210px;
 }
@@ -481,4 +485,37 @@ div.panel-default.panel-heading {
 
 .actions button {
   margin-right: 5px;
+}
+
+footer {
+  padding-top: 10px;
+  border-top: 1px solid #f2f2f2;
+  background-color: #fff;
+}
+
+footer .container {
+  height: 50px;
+  margin-bottom: 10px;
+  line-height: 50px;
+  color: #a6a6a6;
+}
+
+.avatar {
+  padding-top: 12px;
+  padding-right: 10px;
+}
+
+.avatar img {
+  border: 0;
+  margin: 0;
+  border-radius: 50%;
+}
+
+#site-icons {
+  font-size: 24px;
+}
+
+#site-icons a { 
+  color: #a6a6a6;
+  padding-left: 5px;
 }
