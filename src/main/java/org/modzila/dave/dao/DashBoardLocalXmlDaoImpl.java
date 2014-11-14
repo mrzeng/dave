@@ -35,7 +35,7 @@ public class DashBoardLocalXmlDaoImpl implements DashBoardDao {
         List<DashBoard> dashboards = new ArrayList<DashBoard>();
         File dir = new File(dashboardHome);
         File[] files = dir.listFiles();
-        int iDisplayEnd = iDisplayStart + iDisplayLength;
+        int iDisplayEnd = iDisplayStart - 1 + iDisplayLength;
         for (int i = iDisplayStart - 1; i < iDisplayEnd && i < files.length; ++i) {
             File file = files[i];
             dashboards.add(load(file));

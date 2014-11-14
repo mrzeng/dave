@@ -45,25 +45,35 @@ var Dave = function () {
     });
 
     $('#previous a').on('click', function() {
-      var iDisplayStart = +($('#iDisplayStart').text()) - 1;
-      if (!iDisplayStart || iDisplayStart <= 0) {
-        iDisplayStart = 1;
-      }
       var iDisplayLength = 11;
+      var iDisplayStart = +($('#iDisplayStart').text()) - iDisplayLength;
+      if (!iDisplayStart) {
+        iDisplayStart = 1;
+      } else {
+        iDisplayStart = +(iDisplayStart);
+        if (iDisplayStart <= 0) {
+          iDisplayStart = 1;
+        }
+      }
       list(iDisplayStart, iDisplayLength);
     });
 
     $('#next a').on('click', function() {
-      var iDisplayStart = +($('#iDisplayStart').text()) + 1;
       var iDisplayLength = 11;
+      var iDisplayStart = +($('#iDisplayStart').text()) + iDisplayLength;
       list(iDisplayStart, iDisplayLength);
     });
   }
 
   function initDashboards() {
     var iDisplayStart = $.cookie('iDisplayStart');
-    if (!iDisplayStart || iDisplayStart <= 0) {
+    if (!iDisplayStart) {
       iDisplayStart = 1;
+    } else {
+      iDisplayStart = +(iDisplayStart);
+      if (iDisplayStart <= 0) {
+        iDisplayStart = 1;
+      }
     }
     var iDisplayLength = 11;
     list(iDisplayStart, iDisplayLength);
@@ -73,24 +83,26 @@ var Dave = function () {
     $.cookie('iDisplayStart', iDisplayStart);
     $.get('api/dashboard/list?iDisplayStart=' + iDisplayStart + '&iDisplayLength=' + iDisplayLength, function (json) {
       if (!json.isError) {
+        $('.dashboards').children(':not(:first-child)').remove();
+        $('.dashboards').children(':first-child').children(':not(:first-child)').remove();
         var dashboards = json.data.dashboards;
         var iTotalRecords = json.data.iTotalRecords;
         $('#iDisplayStart').text(iDisplayStart);
-        var iDisplayEnd = iDisplayStart + dashboards.length - 1;
+        var iDisplayEnd = iDisplayStart - 1 + dashboards.length;
         $('#iDisplayEnd').text(iDisplayEnd);
         if (1 === iDisplayStart) {
-          $('#previous').attr('disabled', true);
-          $('#previous').removeAttr('href');
+          $('#previous').children('a').hide();
+          $('#previous').children('span').show();
         } else {
-          $('#previous').attr('disabled', false);
-          $('#previous').attr('href', 'javascript:void(0);');
+          $('#previous').children('span').hide();
+          $('#previous').children('a').show();
         }
         if (iDisplayEnd === iTotalRecords) {
-          $('#next').attr('disabled', true);
-          $('#next').removeAttr('href');
+          $('#next').children('a').hide();
+          $('#next').children('span').show();
         } else {
-          $('#next').attr('disabled', false);
-          $('#next').attr('href', 'javascript:void(0);');
+          $('#next').children('span').hide();
+          $('#next').children('a').show();
         }
         for (var i = 0; i < dashboards.length; ++i) {
           var dashboard = dashboards[i];
@@ -104,13 +116,16 @@ var Dave = function () {
     var html = '<div class="col-md-3">';
     html += '<div class="panel panel-default">';
     html += '<div class="panel-body">';
-    html += '<div class="name">' + dashboard.name + '</div>';
+    html += '<div class="name">' + dashboard.name;
+    html += '<button type="button" class="close btn-delete">';
+    html += '<span>&times;</span>';
+    html += '</button>';
+    html += '</div>';
     html += '<div class="date">' + new Date(dashboard.date).Format('yyyy-MM-dd hh:mm:ss') + '</div>';
     html += '<div class="description">' + dashboard.description + '</div>';
     html += '<div class="actions">';
-    html += '<button class="btn btn-sm btn-info">查看</button>';
-    html += '<button class="btn btn-sm btn-success">编辑</button>';
-    html += '<button class="btn btn-sm btn-danger btn-delete">删除</button>';
+    html += '<button class="btn btn-sm btn-info">&#x67e5;&#x770b;</button>';
+    html += '<button class="btn btn-sm btn-success">&#x7f16;&#x8f91;</button>';
     html += '</div>';
     html += '</div>';
     html += '</div>';
