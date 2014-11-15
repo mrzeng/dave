@@ -1,17 +1,15 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html>
   <head>
     <meta charset="utf-8">
+    <title>Dave数据分析可视化引擎</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="可自定义的数据分析可视化引擎">
     <meta name="author" content="sartisty@163.com">
 
-    <title>Dave数据分析可视化引擎</title>
-
     <link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
     <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
     <link rel="stylesheet" href="/assets/daterangepicker-1.3.8/daterangepicker-bs3.css">
-    <link rel="stylesheet" href="/assets/icheck-1.0.2/blue.css" type="text/css">
     <link href="/css/app.css" rel="stylesheet">
     <link href="/css/app-responsive.css" rel="stylesheet">
     <link href="/css/uploadfile.css" rel="stylesheet">
@@ -24,65 +22,20 @@
   </head>
 
   <body>
-    <div id="container">
-      <header class="header">
-        <div class="sidebar-toggle-box">
-          <div class="fa fa-bars tooltips" data-placement="bottom" data-original-title="展开选项"></div>
-        </div>
-        <a href="index.html" class="logo">
+    <header class="header">
+      <div id="container-fluid">
+        <a href="/index.html" class="avatar logo">
+          <img src="https://avatars0.githubusercontent.com/u/745813?v=2&amp;s=30" alt="头像" title="yanshuai's photo">
           <b>Dave</b>
         </a>
-
-        <div>
-          <ul class="nav pull-right">
-            <li>
-              <div id="search">
-                <form>
-                  <input class="form-control input-sm" type="text" name="search" placeholder="Search...">
-                  <button type="submit" id="search-btn" class="btn">
-                    <i class="fa fa-search"></i>
-                  </button>
-                </form>
-              </div>
-            </li>
-          </ul>
-        </div>
-      </header>
-
-      <div id="sidebar" class="nav-collapse" style="display:none">
-        <ul class="sidebar-menu" id="nav-accordion">
-          <li class="sub-menu">
-            <a class="active" href="index.html">
-              <i class="fa fa-dashboard"></i>
-              <span>首页</span>
-              <i class="fa fa-check pull-right"></i>
-            </a>
-          </li>
-          <li class="sub-menu">
-            <a href="javascript:;" >
-              <i class="fa fa-cogs"></i>
-              <span>组件</span>
-              <i class="fa fa-caret-down pull-right" style="margin-right: 5px;"></i>
-            </a>
-            <ul class="sub">
-              <li>
-                <a href="javascript:void(0);" class="dave-widget-table">
-                  <i class="fa fa-table"></i>
-                  <span>表格</span>
-                </a>
-              </li>
-              <li>
-                <a href="javascript:void(0);" class="dave-widget-chart">
-                  <i class="fa fa-bar-chart-o"></i>
-                  <span>图表</span>
-                </a>
-              </li>
-            </ul>
-          </li>
-        </ul>
       </div>
 
-      <div id="main-content">
+      <div class="pull-right">
+      </div>
+    </header>
+
+    <div id="main-content">
+      <div id="container-fluid">
         <div class="nav-wrapper">
           <div class="row">
             <div class="col-md-12">
@@ -112,7 +65,7 @@
           </div>
         </div>
 
-        <div class="content-wrapper ui-sortable">
+        <div class="content-wrapper">
         </div>
       </div>
     </div>
@@ -123,11 +76,8 @@
     <script type="text/javascript" src="http://code.highcharts.com/highcharts.js"></script>
     <script type="text/javascript" src="/assets/moment-2.7.0/moment.min.js"></script>
     <script type="text/javascript" src="/assets/daterangepicker-1.3.8/daterangepicker.js"></script>
-    <script src="/assets/icheck-1.0.2/icheck.min.js"></script>
-    <script type="text/javascript" src="/assets/jquery-plugin/jquery.dcjqaccordion.2.7.js"></script>
     <script type="text/javascript" src="/assets/jquery-plugin/jquery.scrollTo.min.js"></script>
     <script type="text/javascript" src="/assets/jquery-plugin/jquery.pin.min.js"></script>
-    <script type="text/javascript" src="/assets/jquery-plugin/jquery.uploadfile.min.js"></script>
     <script type="text/javascript" src="/assets/jquery-plugin/jquery.parsequery.min.js"></script>
     <script type="text/javascript" src="/js/common.js"></script>
     <script type="text/javascript" src="/js/dashboard.js"></script>

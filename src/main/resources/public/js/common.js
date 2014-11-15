@@ -1,17 +1,3 @@
-/*---LEFT BAR ACCORDION----*/
-$(function() {
-  $('#nav-accordion').dcAccordion({
-    eventType: 'click',
-    autoClose: true,
-    saveState: true,
-    disableLink: true,
-    speed: 'slow',
-    showCount: false,
-    autoExpand: true,
-    classExpand: 'dcjq-current-parent'
-  });
-});
-
 var Script = function() {
   // sidebar dropdown menu auto scrolling
   jQuery('#sidebar .sub-menu > a').click(function() {

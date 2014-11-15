@@ -33,6 +33,7 @@ var Dave = function () {
     });
 
     $('#main-content').on('click', '.btn-delete', function () {
+      
       $('#modal-delete-dashboard').modal('show');
     });
 
