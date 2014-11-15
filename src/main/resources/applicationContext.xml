@@ -22,6 +22,15 @@
     </mvc:interceptor>
   </mvc:interceptors>
 
+  <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+    <property name="prefix">
+      <value>/</value>
+    </property>
+    <property name="suffix">
+      <value>.html</value>
+    </property>
+  </bean>
+
   <bean id="conversionService" class="org.springframework.format.support.FormattingConversionServiceFactoryBean">
     <property name="formatters">
       <list>

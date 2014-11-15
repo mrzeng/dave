@@ -1,4 +1,5 @@
 <dashboard>
+  <id>finance</id>
   <name>Finance</name>
   <date>2014-11-08 15:55:22.785 UTC</date>
   <description>各部门团队财务报表分析</description>

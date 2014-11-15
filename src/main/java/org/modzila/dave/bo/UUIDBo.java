@@ -6,8 +6,18 @@ import org.springframework.stereotype.Component;
 @Component
 public class UUIDBo {
 
-    public String generate() {
+    public String getWidgetUUID() {
         UUID uuid = UUID.randomUUID();
         return String.format("widget-%s", uuid.toString());
+    }
+
+    public String getDashBoardUUID() {
+        UUID uuid = UUID.randomUUID();
+        return String.format("dashboard-%s", uuid.toString());
+    }
+
+    public String getDataSourceUUID() {
+        UUID uuid = UUID.randomUUID();
+        return String.format("datasource-%s", uuid.toString());
     }
 }

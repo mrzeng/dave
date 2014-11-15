@@ -56,6 +56,8 @@ public class DashBoardController {
             @RequestParam("description") String description) {
         try {
             DashBoard dashboard = new DashBoard();
+            String uuid = uuidBo.getDashBoardUUID();
+            dashboard.setId(uuid);
             dashboard.setName(name);
             dashboard.setDate(new Date());
             dashboard.setCategory(category);
@@ -103,7 +105,7 @@ public class DashBoardController {
             @RequestParam("width") String width) {
         try {
             DashBoard dashboard = dashboardDao.load(path);
-            String id = uuidBo.generate();
+            String id = uuidBo.getWidgetUUID();
             dashboard.addWidget(id, width, type);
             dashboardDao.dump(dashboard, path);
             Widget widget = WidgetFactory.create(type);

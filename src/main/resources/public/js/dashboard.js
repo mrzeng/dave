@@ -3,6 +3,12 @@ var App = function() {
 
   return {init: init};
 
+  function getId() {
+    var pathname = window.location.pathname;
+    var paths = pathname.split('/');
+    return paths[paths.length - 1];
+  }
+
   function getPath() {
     var path = '';
     var pathItems = $('#team').find('.path-item span');
@@ -91,7 +97,7 @@ var App = function() {
     var $tableWidget = $('#' + id);
     $tableWidget.find('.select-width').val(width);
     $tableWidget.find('.kettle').uploadFile({
-      url: 'api/widget/' + id + '/kettle/upload',
+      url: '/api/widget/' + id + '/kettle/upload',
       allowedTypes: 'ktr',
       showProgress: true,
       dragDrop: true,
@@ -181,7 +187,7 @@ var App = function() {
     var $chartWidget = $('#' + id);
     $chartWidget.find('.select-width').val(width);
     $chartWidget.find('.kettle').uploadFile({
-      url: 'api/widget/' + id + '/kettle/upload',
+      url: '/api/widget/' + id + '/kettle/upload',
       allowedTypes: 'ktr',
       showProgress: true,
       dragDrop: true,
@@ -330,7 +336,7 @@ var App = function() {
   }
 
   function drawTableWidget(widgetId) {
-    $.getJSON('api/widget/' + widgetId + '/config', function(json) {
+    $.getJSON('/api/widget/' + widgetId + '/config', function(json) {
       if (!json.isError) {
         drawTableWidgetData(json.data);
       }
@@ -338,7 +344,7 @@ var App = function() {
   }
 
   function drawChartWidget(widgetId) {
-    $.getJSON('api/widget/' + widgetId + '/config', function(json) {
+    $.getJSON('/api/widget/' + widgetId + '/config', function(json) {
       if (!json.isError) {
         drawChartWidgetData(json.data);
       }
@@ -356,7 +362,7 @@ var App = function() {
       }
       $tableWidget.find('[data-label="' + key +'"]').val(value);
     }
-    $.getJSON('api/widget/' + widgetData.id + '/data?path=' + getPath() + '&daterange=' + getDateRange(), function(json) {
+    $.getJSON('/api/widget/' + widgetData.id + '/data?path=' + getPath() + '&daterange=' + getDateRange(), function(json) {
       if (!json.isError) {
         var dt = json.data;
         drawTableData($tableWidget.find('.widget-container'), $tableWidget.find('.table-filter-menu'), dt);
@@ -375,7 +381,7 @@ var App = function() {
       }
       $chartWidget.find('[data-label="' + key +'"]').val(value);
     }
-    $.getJSON('api/widget/' + widgetData.id + '/data?path=' + getPath() + '&daterange=' + getDateRange(), function(json) {
+    $.getJSON('/api/widget/' + widgetData.id + '/data?path=' + getPath() + '&daterange=' + getDateRange(), function(json) {
       if (!json.isError) {
         drawChartData($chartWidget.find('.widget-container'), widgetData.type, json.data);
       }
@@ -658,7 +664,7 @@ var App = function() {
       var $daveWidget = $(this).parents('.dave-widget');
       var id = $daveWidget.attr('id');
       var width = $(this).val();
-      $.post('api/dashboard/index/layout/' + id + '/update', {width: width}, function(json) {
+      $.post('/api/dashboard/' + getId() + '/layout/' + id + '/update', {width: width}, function(json) {
         if (!json.isError) {
           $daveWidget.prop('class', 'dave-widget');
           $daveWidget.addClass(width);
@@ -694,7 +700,7 @@ var App = function() {
       data.id = widgetId;
       data.name = $daveWidget.find('.panel-title').children('span').html();
       if ('table' === $daveWidget.attr('data-widget-type')) {
-        $.post('api/widget/' + widgetId + '/table/update', {
+        $.post('/api/widget/' + widgetId + '/table/update', {
           'widget': JSON.stringify(data),
           'path': getPath(),
           'daterange': getDateRange()
@@ -705,7 +711,7 @@ var App = function() {
           }
         });
       } else if ('chart' === $daveWidget.attr('data-widget-type')) {
-        $.post('api/widget/' + widgetId + '/chart/update', {
+        $.post('/api/widget/' + widgetId + '/chart/update', {
           'widget': JSON.stringify(data),
           'path': getPath(),
           'daterange': getDateRange()
@@ -733,14 +739,14 @@ var App = function() {
       data.id = widgetId;
       data.name = $daveWidget.find('.panel-title').children('span').html();
       if ('table' === $daveWidget.attr('data-widget-type')) {
-        $.getJSON('api/widget/data?path=' + getPath() + '&daterange=' + getDateRange(), {'widget': JSON.stringify(data)}, function(json) {
+        $.getJSON('/api/widget/data?path=' + getPath() + '&daterange=' + getDateRange(), {'widget': JSON.stringify(data)}, function(json) {
           if (!json.isError) {
             drawTableData($daveWidget.find('.widget-container'), $daveWidget.find('.table-filter-menu'), json.data);
             showWidgetContent($daveWidget);
           }
         });
       } else if ('chart' === $daveWidget.attr('data-widget-type')) {
-        $.getJSON('api/widget/data?path=' + getPath() + '&daterange=' + getDateRange(), {'widget': JSON.stringify(data)}, function(json) {
+        $.getJSON('/api/widget/data?path=' + getPath() + '&daterange=' + getDateRange(), {'widget': JSON.stringify(data)}, function(json) {
           if (!json.isError) {
             var type = $daveWidget.find('[data-label="type"]').val();
             drawChartData($daveWidget.find('.widget-container'), type, json.data);
@@ -753,7 +759,7 @@ var App = function() {
     $('.content-wrapper').on('click', '.dave-remove', function() {
       var $daveWidget = $(this).parents('.dave-widget');
       var daveWidgetId = $daveWidget.attr('id');
-      $.post('api/dashboard/index/widget/' + daveWidgetId + '/remove', function(json) {
+      $.post('/api/dashboard/' + getId() + '/widget/' + daveWidgetId + '/remove', function(json) {
         if (!json.isError) {
           $daveWidget.remove();
         }
@@ -782,7 +788,7 @@ var App = function() {
 
   function initComponent() {
     $('.dave-widget-table').on('click', function() {
-      $.post('api/dashboard/index/widget/add', {type: 'table', width: 'col-md-12'}, function(json) {
+      $.post('/api/dashboard/' + getId() + '/widget/add', {type: 'table', width: 'col-md-12'}, function(json) {
         if (!json.isError) {
           var id = json.data;
           initTableWidgetLayout(id, 'col-md-12');
@@ -795,7 +801,7 @@ var App = function() {
     });
   
     $('.dave-widget-chart').on('click', function() {
-      $.post('api/dashboard/index/widget/add', {type: 'chart', width: 'col-md-12'}, function(json) {
+      $.post('/api/dashboard/' + getId() + '/widget/add', {type: 'chart', width: 'col-md-12'}, function(json) {
         if (!json.isError) {
           var id = json.data;
           initChartWidgetLayout(id, 'col-md-12');
@@ -810,7 +816,7 @@ var App = function() {
 
   function initPathRoot() {
     $.ajax({
-      url: 'api/path/root',
+      url: '/api/path/root',
       type: 'GET',
       async: false,
       success: function(json) {
@@ -829,7 +835,7 @@ var App = function() {
     li += '</span>';
     li += '</a>';
     $.ajax ({
-      url: 'api/path/next',
+      url: '/api/path/next',
       type: 'GET',
       async: false,
       data: {'path': getPath() + '/' + path},
@@ -944,7 +950,7 @@ var App = function() {
 
   function initWidgetsLayout() {
     $('.content-wrapper').empty();
-    $.getJSON('api/dashboard/index/layout', function(json) {
+    $.getJSON('/api/dashboard/' + getId() + '/layout', function(json) {
       if (!json.isError) {
         var data = json.data;
         for (var i = 0; i < data.length; ++i) {

@@ -6,6 +6,7 @@ import java.util.List;
 
 public class DashBoard {
 
+    private String id;
     private String name;
     private Date date;
     private String category;
@@ -14,6 +15,14 @@ public class DashBoard {
 
     public DashBoard() {
         widgets = new LinkedList<WidgetLayout>();
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public void setName(String name) {

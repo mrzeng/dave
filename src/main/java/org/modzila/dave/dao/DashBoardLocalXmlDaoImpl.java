@@ -10,6 +10,8 @@ import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 import org.modzila.dave.model.DashBoardList;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
@@ -38,7 +40,10 @@ public class DashBoardLocalXmlDaoImpl implements DashBoardDao {
         int iDisplayEnd = iDisplayStart - 1 + iDisplayLength;
         for (int i = iDisplayStart - 1; i < iDisplayEnd && i < files.length; ++i) {
             File file = files[i];
-            dashboards.add(load(file));
+            DashBoard dashboard = load(file);
+            if (null != dashboard) {
+                dashboards.add(dashboard);
+            }
         }
         return new DashBoardList(dashboards, files.length);
     }
@@ -54,8 +59,13 @@ public class DashBoardLocalXmlDaoImpl implements DashBoardDao {
 
     DashBoard load(File xml) {
         if (xml.isFile()) {
-            DashBoard dashboard = (DashBoard) xstream.fromXML(xml);
-            return dashboard;
+            try {
+                DashBoard dashboard = (DashBoard) xstream.fromXML(xml);
+                return dashboard;
+            } catch (Exception ex) {
+                LOG.error("Exception:", ex);
+                return null;
+            }
         }
         return null;
     }
@@ -79,4 +89,5 @@ public class DashBoardLocalXmlDaoImpl implements DashBoardDao {
     }
 
     private final XStream xstream;
+    private static final Logger LOG = LoggerFactory.getLogger(DashBoardLocalXmlDaoImpl.class);
 }

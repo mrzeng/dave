@@ -36,6 +36,16 @@ var Dave = function () {
       $('#modal-delete-dashboard').modal('show');
     });
 
+    $('#main-content').on('click', '.btn-view', function() {
+      var dashboard = $(this).parents('.dashboard');
+      window.location.href = "view/dashboard/" + dashboard.attr('id');
+    });
+
+    $('#main-content').on('click', '.btn-edit', function() {
+      var dashboard = $(this).parents('.dashboard');
+      window.location.href = "edit/dashboard/" + dashboard.attr('id');
+    });
+
     $('.btn-delete-cancel').on('click', function () {
       $('#modal-delete-dashboard').modal('hide');
     });
@@ -113,7 +123,7 @@ var Dave = function () {
   }
 
   function render(dashboard) {
-    var html = '<div class="col-md-3">';
+    var html = '<div id="' + dashboard.id + '" class="col-md-3 dashboard">';
     html += '<div class="panel panel-default">';
     html += '<div class="panel-body">';
     html += '<div class="name">' + dashboard.name;
@@ -124,8 +134,8 @@ var Dave = function () {
     html += '<div class="date">' + new Date(dashboard.date).Format('yyyy-MM-dd hh:mm:ss') + '</div>';
     html += '<div class="description">' + dashboard.description + '</div>';
     html += '<div class="actions">';
-    html += '<button class="btn btn-sm btn-info">&#x67e5;&#x770b;</button>';
-    html += '<button class="btn btn-sm btn-success">&#x7f16;&#x8f91;</button>';
+    html += '<button class="btn btn-sm btn-info btn-view">&#x67e5;&#x770b;</button>';
+    html += '<button class="btn btn-sm btn-success btn-edit">&#x7f16;&#x8f91;</button>';
     html += '</div>';
     html += '</div>';
     html += '</div>';
