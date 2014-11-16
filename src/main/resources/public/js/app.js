@@ -11,6 +11,34 @@ var Dave = function () {
   }
 
   function initLayout() {
+    $('#qrcode-qq').qrcode({
+      text: 'http://qm.qq.com/cgi-bin/qm/qr?k=foYGvZZeIIc6KDsLX2Chj52naQMdLuBy',
+      width: 100,
+      height: 100
+    });
+
+    function showPopover($self) {
+      var $popover = $self.find('.popover');
+      var height = $popover.height();
+      var width = $popover.width();
+      var $position = $self.position();
+      $popover.css('top', ($position.top - height - 12) + 'px');
+      $popover.css('left', ($position.left - width / 2 - 2) + 'px');
+      $popover.show();
+    }
+
+    function hidePopover($self) {
+      $self.find('.popover').hide();
+    }
+
+    $('#site-qq').on('mouseenter', function() {
+      showPopover($(this));
+    });
+
+    $('#site-qq').on('mouseleave', function() {
+      hidePopover($(this));
+    });
+
     $('#add-dashboard').on('click', function () {
       $('#modal-new-dashboard').modal('show');
     });

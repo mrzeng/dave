@@ -523,3 +523,26 @@ footer .container-fluid {
 .dashboards {
   margin-right: 100px;
 }
+
+.popover.top {
+  padding: 5px 20px 5px 20px;
+  text-align: center;
+  font-size: 14px;
+}
+
+.popover.top label {
+  margin-top: 0px;
+  margin-bottom: 0px;
+  color: #666;
+}
+
+.popover.top p {
+  margin-top: 0px;
+  margin-bottom: 0px;
+  color: #999;
+}
+
+#qrcode-qq {
+  margin-top: 5px;
+  margin-bottom: 5px;
+}

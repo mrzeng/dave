@@ -183,14 +183,15 @@
       <plugin>
         <groupId>com.elong.jspringbot</groupId>
         <artifactId>jspringbot-maven-plugin</artifactId>
-        <exclusions>
-          <exclusion>
+        <version>1.0.1</version>
+        <executions>
+          <execution>
             <phase>integration-test</phase>
             <goals>
               <goal>system-test-web-ui</goal>
             </goals>
-          </exclusion>
-        </exclusions>
+          </execution>
+        </executions>
       </plugin>
     </plugins>
   </build>
