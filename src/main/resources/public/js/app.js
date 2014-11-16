@@ -1,6 +1,8 @@
 var Dave = function () {
   "use strict";
 
+  var uuid;
+
   return {init: init};
 
   function init() {
@@ -23,9 +25,21 @@ var Dave = function () {
         category: $('#dashboard-category').val(),
         description: $('#dashboard-description').val()
       };
-      $.post('api/dashboard/add', dashboard, function (json) {
+      var iDisplayLength = 11;
+      var iDisplayStart = +($('#iDisplayStart').text());
+      var iDisplayEnd = +($('#iDisplayEnd').text());
+      $.post('/api/dashboard/add', dashboard, function (json) {
         if (!json.isError) {
           dashboard.date = json.data;
+          if (iDisplayEnd === iDisplayStart - 1 + iDisplayLength) {
+            enableNextLink();
+          } else {
+            if (0 === iDisplayStart) {
+              iDisplayStart = 1;
+            }
+            ++iDisplayEnd;
+          }
+          updateInfo(iDisplayStart, iDisplayEnd);
           render(dashboard);
           $('#modal-new-dashboard').modal('hide');
         }
@@ -33,7 +47,8 @@ var Dave = function () {
     });
 
     $('#main-content').on('click', '.btn-delete', function () {
-      
+      var dashboard = $(this).parents('.dashboard');
+      uuid = dashboard.attr('id');
       $('#modal-delete-dashboard').modal('show');
     });
 
@@ -52,7 +67,43 @@ var Dave = function () {
     });
 
     $('.btn-delete-sure').on('click', function () {
-      $('#modal-delete-dashboard').modal('hide');
+      var iDisplayLength = 11;
+      var iDisplayStart = +($('#iDisplayStart').text());
+      var iDisplayEnd = +($('#iDisplayEnd').text());
+      $.post("/api/dashboard/delete", {
+        id: uuid,
+        iDisplayLength: iDisplayLength,
+        iDisplayStart: iDisplayStart,
+        iDisplayEnd: iDisplayEnd
+      }, function(json) {
+        if (!json.isError) {
+          $('#' + uuid).remove();
+          var dashboards = json.data;
+          if (dashboards) {
+            for (var i = 0; i < dashboards.length; ++i) {
+              var dashboard = dashboards[i];
+              render(dashboard);
+            }
+            if (iDisplayStart === iDisplayEnd) {
+              iDisplayStart -= iDisplayLength;
+              if (iDisplayStart <= 0) {
+                disablePreviousLink();
+                disableNextLink();
+                updateInfo(0, 0);
+              } else {
+                if (0 === iDisplayStart) {
+                  disablePreviousLink();
+                }
+                disableNextLink();
+                updateInfo(iDisplayStart, iDisplayStart -1 + iDisplayLength);
+              }
+            } else {
+              updateInfo(iDisplayStart, iDisplayEnd - 1);
+            }
+          }
+        }
+        $('#modal-delete-dashboard').modal('hide');
+      });
     });
 
     $('#previous a').on('click', function() {
@@ -91,36 +142,59 @@ var Dave = function () {
   }
 
   function list(iDisplayStart, iDisplayLength) {
-    $.cookie('iDisplayStart', iDisplayStart);
-    $.get('api/dashboard/list?iDisplayStart=' + iDisplayStart + '&iDisplayLength=' + iDisplayLength, function (json) {
+    $.get('/api/dashboard/list?iDisplayStart=' + iDisplayStart + '&iDisplayLength=' + iDisplayLength, function (json) {
       if (!json.isError) {
         $('.dashboards').children(':not(:first-child)').remove();
         $('.dashboards').children(':first-child').children(':not(:first-child)').remove();
         var dashboards = json.data.dashboards;
         var iTotalRecords = json.data.iTotalRecords;
-        $('#iDisplayStart').text(iDisplayStart);
         var iDisplayEnd = iDisplayStart - 1 + dashboards.length;
-        $('#iDisplayEnd').text(iDisplayEnd);
-        if (1 === iDisplayStart) {
-          $('#previous').children('a').hide();
-          $('#previous').children('span').show();
+        if (0 === iDisplayEnd) {
+          iDisplayStart = 0;
+        }
+        if (1 >= iDisplayStart) {
+          disablePreviousLink();
         } else {
-          $('#previous').children('span').hide();
-          $('#previous').children('a').show();
+          enablePreviousLink();
         }
         if (iDisplayEnd === iTotalRecords) {
-          $('#next').children('a').hide();
-          $('#next').children('span').show();
+          disableNextLink();
         } else {
-          $('#next').children('span').hide();
-          $('#next').children('a').show();
+          enableNextLink();
         }
         for (var i = 0; i < dashboards.length; ++i) {
           var dashboard = dashboards[i];
           render(dashboard);
         }
+        updateInfo(iDisplayStart, iDisplayEnd);
       }
     });
+  }
+
+  function updateInfo(iDisplayStart, iDisplayEnd) {
+    $('#iDisplayStart').text(iDisplayStart);
+    $('#iDisplayEnd').text(iDisplayEnd);
+    $.cookie('iDisplayStart', iDisplayStart);
+  }
+
+  function enablePreviousLink() {
+    $('#previous').children('span').hide();
+    $('#previous').children('a').show();
+  }
+
+  function disablePreviousLink() {
+    $('#previous').children('a').hide();
+    $('#previous').children('span').show();
+  }
+
+  function enableNextLink() {
+    $('#next').children('span').hide();
+    $('#next').children('a').show();
+  }
+
+  function disableNextLink() {
+    $('#next').children('a').hide();
+    $('#next').children('span').show();
   }
 
   function render(dashboard) {
@@ -128,7 +202,7 @@ var Dave = function () {
     html += '<div class="panel panel-default">';
     html += '<div class="panel-body">';
     html += '<div class="name">' + dashboard.name;
-    html += '<button type="button" class="close btn-delete">';
+    html += '<button type="button" class="close btn-delete" title="删除dashboard">';
     html += '<span>&times;</span>';
     html += '</button>';
     html += '</div>';
@@ -141,15 +215,7 @@ var Dave = function () {
     html += '</div>';
     html += '</div>';
     html += '</div>';
-    var children = $('.dashboards').children('.row');
-    var child = children[children.length - 1];
-    if (4 === child.length) {
-      html = '<div class="row">' + html;
-      html += '</div>';
-      $('.dashboards').append(html);
-    } else {
-      $(child).append(html);
-    }
+    $('.panel-new-dashboard').after(html);
   }
 }();
 

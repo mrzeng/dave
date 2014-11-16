@@ -180,6 +180,18 @@
           </execution>
         </executions>
       </plugin>
+      <plugin>
+        <groupId>com.elong.jspringbot</groupId>
+        <artifactId>jspringbot-maven-plugin</artifactId>
+        <exclusions>
+          <exclusion>
+            <phase>integration-test</phase>
+            <goals>
+              <goal>system-test-web-ui</goal>
+            </goals>
+          </exclusion>
+        </exclusions>
+      </plugin>
     </plugins>
   </build>
 </project>

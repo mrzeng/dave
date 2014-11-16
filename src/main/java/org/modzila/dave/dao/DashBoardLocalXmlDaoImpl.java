@@ -48,8 +48,23 @@ public class DashBoardLocalXmlDaoImpl implements DashBoardDao {
         return new DashBoardList(dashboards, files.length);
     }
  
+    public DashBoard load(int index) throws Exception {
+        File dir = new File(dashboardHome);
+        File[] files = dir.listFiles();
+        if (index < files.length) {
+            return load(files[index]);
+        } else {
+            return null;
+        }
+    }
+
+    public void delete(String path) throws Exception {
+        File xml = new File(dashboardHome, String.format("%s.xml", path));
+        xml.delete();
+    }
+
     public void add(DashBoard dashboard) throws IOException {
-        dump(dashboard, dashboard.getName());
+        dump(dashboard, dashboard.getId());
     }
 
     public DashBoard load(String path) {

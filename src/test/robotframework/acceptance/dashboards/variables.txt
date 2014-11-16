@@ -1,0 +1,5 @@
+*** Settings ***
+Resource    ../resources.txt
+
+*** Variables ***
+IDISPLAY_LENGTH    11

@@ -1,0 +1,256 @@
+*** Settings ***
+Library    JSpringBotGlobal
+Library    Collections
+Library    String
+Library    OperatingSystem
+
+*** Variables ***
+${POLL_MILLIS}    500
+${TIMEOUT_MILLIS}    60000
+${LEVEL_1_TIMEOUT_MILLIS}    1000
+${LEVEL_2_TIMEOUT_MILLIS}    2000
+${LEVEL_3_TIMEOUT_MILLIS}    5000
+${js_condition}    return (xmlhttp.readyState >= 2 && xmlhttp.status == 200)
+${js_timeout_in_seconds}    5
+
+*** Keywords ***
+not    [Arguments]    ${bValue}
+    ${value} =    EL Evaluate    $[!$1]    ${bValue}
+    [Return]    ${value}
+
+waitForElementPresent
+    [Documentation]    Polls every 500 or half a second and will fail when timeout is reached (10000 millis or 10 secs).
+    [Arguments]    ${locator}
+    Wait Till Element Found    ${locator}    ${POLL_MILLIS}    ${TIMEOUT_MILLIS}
+
+waitForVisible
+    [Documentation]     Polls every 500 or half a second and will fail when timeout is reached (10000 millis or 10 secs).
+    [Arguments]    ${locator}
+    Wait Till Element Visible     ${locator}    ${POLL_MILLIS}    ${TIMEOUT_MILLIS}
+
+waitAjaxRequestSuccess
+    Wait For JavaScript Condition    ${js_condition}    ${js_timeout_in_seconds}
+
+open
+    [Documentation]
+    [Arguments]    ${url}
+    Wait Until Navigate To     ${url}    ${TIMEOUT_MILLIS}
+
+type
+    [Documentation]
+    [Arguments]    ${locator}    ${text}
+    Input Text    ${locator}    ${text}
+
+点击    [Arguments]    ${locator}
+    Click Element    ${locator}
+
+click
+    [Documentation]
+    [Arguments]    ${locator}
+    Click Element    ${locator}
+
+clickAndWait
+    [Documentation]
+    [Arguments]    ${locator}
+    Click Element    ${locator}
+    waitForPageToLoad    ${TIMEOUT_MILLIS}
+
+select
+    [Documentation]
+    [Arguments]    ${locator}    ${items}
+    Select From List    ${locator}    ${items}
+
+captureEntirePageScreenshot
+    [Documentation]    Takes a screenshot of the entire screen and embeds it into the log.
+    Capture Screenshot
+
+windowMaximize
+    [Documentation]    Resize currently selected window to take up the entire screen
+    Maximize Window
+
+waitForPageToLoad    [Arguments]    ${timeout}
+    [Documentation]    Waits for a new page to load.
+    Sleep    5 s
+
+pause
+    [Documentation]    Pauses the test executed for the given time.
+    ...                time may be either a number or a time string. Time strings are in a format such as '1 day 2 hours 3 minutes 4 seconds 5milliseconds' or '1d 2h 3m 4s 
+    ...                5ms', and they are fully explained in an appendix of Robot Framework User Guide. Optional reason can be used to explain why sleeping is necessary.
+    ...                Both the time slept and the reason are logged.
+    [Arguments]    ${time}    ${reason}
+    Sleep    ${time}    ${reason}
+
+deleteAllVisibleCookies
+    [Documentation]
+    Delete All Cookies
+
+waitForXpathCount    [Arguments]    ${locator}    ${count}
+    [Documentation]
+    waitUntilKeywordRunSucceeds    XPath Should Match X Times    ${locator}    ${count}
+
+找到元素内部最邻近的文本    [Arguments]    ${locator}    ${text}
+    [Documentation]    找到离指定${locator}最近的文本${text}
+    ${node} =    Join Strings To Single String    //*[text()='    ${text}    ']
+    ${locator} =    Get Closest Inner Element    ${locator}    ${node}
+    [Return]    ${locator}
+
+找到元素外部最邻近的文本    [Arguments]    ${locator}    ${text}
+    [Documentation]    找到离指定${locator}最近的文本${text}
+    ${node} =    Join Strings To Single String    //*[text()='    ${text}    ']
+    ${locator} =    Get Closest Outer Element    ${locator}    ${node}
+    [Return]    ${locator}
+
+找到元素外部最邻近的选择框    [Arguments]    ${locator}
+    [Documentation]    直到离指定${locator}最近的选项框
+    ${locator} =    Get Closest Outer Element    ${locator}    //input[@type='checkbox']
+    [Return]    ${locator}
+
+找到元素外部最邻近的文本输入框    [Arguments]    ${locator}
+    [Documentation]    找到离指定${locator}最近的文本输入框
+    ${locator} =    Get Closest Outer Element    ${locator}    //input[@type='text'] | //input[not(@type)]
+    [Return]    ${locator}
+
+找到元素外部最邻近的密码输入框    [Arguments]    ${locator}
+    [Documentation]    找到离指定${locator}最近的密码输入框
+    ${locator} =    Get Closest Outer Element    ${locator}    //input[@type='password']
+    [Return]    ${locator}
+
+# TODO
+找到元素外部最邻近的输入按钮    [Arguments]    ${locator}
+    [Documentation]    找到离指定${locator}最近的按钮，其中按钮的value为${text}
+    ${node} =    Join Strings To Single String    //input[@type='button']
+    ${locator} =    Get Closest Outer Element    ${locator}    ${node}
+    [Return]    ${locator}
+
+找到元素外部最邻近的按钮    [Arguments]    ${locator}    ${text}
+    [Documentation]    找到离指定${locator}最近的按钮，其中按钮的value为${text}
+    ${node} =    Join Strings To Single String    //*[@value='    ${text}    ']
+    ${locator} =    Get Closest Outer Element    ${locator}    ${node}
+    [Return]    ${locator}
+
+找到元素外部最邻近的链接    [Arguments]    ${locator}
+    [Documentation]    找到离指定${locator}最近的链接
+    ${locator} =    Get Closest Outer Element    ${locator}    //a
+    [Return]    ${locator}
+
+找到指定文本对应的唯一页面元素    [Arguments]    ${text}
+    [Documentation]    返回${text}对应的页面元素的定位符
+    ${locator} =    Get Identify Visible Element XPath By Text    ${text}    /html/body//*
+    [Return]    ${locator}
+
+找到指定标题提示所对应的唯一页面元素    [Arguments]    ${title}
+    [Documentation]    返回${title}对应的唯一页面元素xpath
+    ${node} =    Join Strings To Single String    /html/body//*[@title='    ${title}    ']
+    ${locator} =    Filter To Get Identify Visible XPath    ${node}
+    [Return]    ${locator}
+
+找到页面中唯一的选择文件按钮
+    ${locator} =    Filter To Get Identify Visible XPath    //input[@type='file']
+    [Return]    ${locator}
+
+找到指定文本对应的所有页面元素    [Arguments]    ${text}
+    [Documentation]
+    @{locator} =    Get All Visible Element XPaths By Text    ${text}    //*
+    [Return]    @{locator}
+
+找到指定文本对应的第n号页面元素    [Arguments]    ${text}    ${n}
+    [Documentation]
+    @{locators} =    Get All Visible Element XPaths By Text    ${text}    //*
+    ${locator} =    Get From List    ${locators}    ${n}
+    [Return]    ${locator}
+
+页面中存在密码输入框
+    [Documentation]    检查页面中是否存在密码输入框，如果存在，返回true；否则，返回false。
+    @{locators} =    Filter To Get Visible XPaths    //input[@type='password']
+    ${length} =    Get Length    ${locators}
+    ${isExist} =    EL Evaluate    $[0 != $1]    ${length}
+    [Return]    ${isExist}
+
+页面中不存在密码输入框
+    [Documentation]    检查页面中是否存在密码输入框，如果存在，返回false；否则，返回true。
+    @{locators} =    Filter To Get Visible XPaths    //input[@type='password']
+    ${length} =    Get Length    ${locators}
+    ${isNotExist} =    EL Evaluate    $[0 == $1]    ${length}
+    [Return]    ${isNotExist}
+
+找到页面中所有的文本输入框
+    [Documentation]    找到页面中所包含的所有文本输入框
+    @{locator} =    Filter To Get Identify Visible XPath    //input[@type='text'] | //input[not(@type)]
+    [Return]    @{locator}
+
+找到页面中第n个文本输入框    [Arguments]    ${n}
+    [Documentation]    找到页面中所包含的第${n}个文本输入框
+    @{locators} =    Filter To Get Visible XPaths    //input[@type='text'] | //input[not(@type)]
+    ${locator} =    Get From List    ${locators}    ${n}
+    [Return]    ${locator}
+
+传递数据    [Arguments]    ${variable}    ${value}
+    [Documentation]    顺序用例中，前一个用例向下一个用例传递数据${variable}
+    ${name} =    Set Variable    \${variable}
+    Set Suite Variable    ${name}    ${value}
+
+页面源文件中应该包含文本    [Arguments]    ${text}
+    page should contain    ${text}
+
+页面源文件中不应该包含文本    [Arguments]    ${text}
+    page should not contain    ${text}
+
+页面中应该包含可见文本    [Arguments]    ${text}
+    ${isVisible} =    Is Text Visible    ${text}
+    should be true    ${isVisible}
+
+页面中不应该包含可见文本    [Arguments]    ${text}
+    ${isVisible} =    Is Text Visible    ${text}
+    ${isNotVisible} =    not    ${isVisible}
+    should be true    ${isNotVisible}
+
+等待直到页面中包含可见文本    [Arguments]    ${text}
+    wait until keyword succeeds    30 seconds    1 s    页面中应该包含可见文本    ${text}
+
+等待直到页面中不包含可见文本    [Arguments]    ${text}
+    wait until keyword succeeds    30 seconds    1 s    页面中不应该包含可见文本    ${text}
+
+获取第n号元素    [Arguments]    ${list}    ${index}
+    ${element} =    Get From List    ${list}    ${index}
+    [Return]    ${element}
+
+找出指定正则表达式匹配文本所对应的唯一页面元素    [Arguments]    ${regex}
+    ${xpath} =    Join Strings To Single String    /html/body//*[matches(., "    ${regex}    ")]
+    @{elements} =    filter to get visible xpaths    ${xpath}
+    ${length} =    Get Length    ${elements}
+    ${index} =    EL Evaluate    $[$1 - 1]    ${length}
+    ${element} =    Get From List    ${elements}    ${index}
+    [Return]    ${element}
+
+获取网页当前的URL地址
+    ${url} =    Get Page Current Url
+    [Return]    ${url}
+
+获取网页当前的路径名
+    ${pathname} =    Get Page Current Pathname
+    [Return]    ${pathname}
+
+从字符串中解析得到第n个数字字符串    [Arguments]    ${text}    ${index}
+    @{numbers} =    Get Numbers From String    ${text}
+    ${number} =    Get From List    ${numbers}    ${index}
+    [Return]    ${number}
+
+字符串应该匹配正则表达式    [Arguments]    ${text}    ${regex}
+    ${isMatch} =    String Match Regex    ${text}    ${regex}
+    should be true    ${isMatch}
+
+得到文本输入框中的值    [Arguments]    ${xpath}
+    ${attr} =    Get Element Attribute By XPath    ${xpath}    value
+    [Return]    ${attr}
+
+得到指定元素的文本内容    [Arguments]    ${xpath}
+    ${attr} =    Get Text    ${xpath}[text()]
+    [Return]    ${attr}
+
+检查元素颜色    [Arguments]    ${xpath}    ${color}
+    ${css} =    Get Element Css Style    ${xpath}    color
+    Should be equal    ${css}    ${color}
+
+检查元素背景色    [Arguments]    ${xpath}    ${color}
+    ${css} =    Get Element Css Style    ${xpath}    background-color
+    Should be equal    ${css}    ${color}

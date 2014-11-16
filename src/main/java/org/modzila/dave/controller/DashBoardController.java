@@ -1,6 +1,9 @@
 package org.modzila.dave.controller;
 
+import java.util.List;
+import java.util.ArrayList;
 import java.util.Date;
+import javax.validation.constraints.Min;
 import org.modzila.dave.bo.UUIDBo;
 import org.modzila.dave.dao.DashBoardDao;
 import org.modzila.dave.dao.WidgetDao;
@@ -64,6 +67,34 @@ public class DashBoardController {
             dashboard.setDescription(description);
             dashboardDao.add(dashboard);
             return new Result(dashboard.getDate());
+        } catch (Exception ex) {
+            LOG.error("Exception:", ex);
+            return new Result(true, String.valueOf(ex));
+        }
+    }
+
+    @RequestMapping(value = "/delete", method = RequestMethod.POST)
+    @ResponseBody
+    public Result deleteDashboard(@RequestParam("id") String id,
+            @RequestParam("iDisplayLength") @Min(0) int iDisplayLength,
+            @RequestParam("iDisplayStart") @Min(0) int iDisplayStart,
+            @RequestParam("iDisplayEnd") @Min(0) int iDisplayEnd) {
+        try {
+            List<DashBoard> dashboards = new ArrayList<DashBoard>();
+            if (iDisplayStart < iDisplayEnd) {
+                DashBoard dashboard = dashboardDao.load(iDisplayEnd + 1);
+                if (null != dashboard) {
+                    dashboards.add(dashboard);
+                }
+            } else {
+                iDisplayStart -= iDisplayLength;
+                if (iDisplayStart > 0) {
+                    dashboards.addAll(dashboardDao.list(iDisplayStart,
+                            iDisplayLength).getDashboards());
+                }
+            }
+            dashboardDao.delete(id);
+            return new Result(dashboards);
         } catch (Exception ex) {
             LOG.error("Exception:", ex);
             return new Result(true, String.valueOf(ex));
