@@ -12,7 +12,7 @@ var Dave = function () {
 
   function initLayout() {
     $('#qrcode-qq').qrcode({
-      text: 'http://qm.qq.com/cgi-bin/qm/qr?k=foYGvZZeIIc6KDsLX2Chj52naQMdLuBy',
+      text: 'http://qm.qq.com/cgi-bin/qm/qr?k=nrfx4-qm4RCsN_FWban61yt0-WfDziD0',
       width: 100,
       height: 100
     });
