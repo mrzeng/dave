@@ -40,7 +40,7 @@ public class UIWidget {
     public static UIWidget loadFrom(File f) throws IOException {
         UIWidget uiWidget = new UIWidget();
         uiWidget.setName(f.getName());
-        uiWidget.setTpl(FileUtils.readFileToString(f));
+        uiWidget.setTpl(FileUtils.readFileToString(new File(f, "index.html")));
         return uiWidget;
     }
 }

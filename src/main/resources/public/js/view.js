@@ -1,6 +1,8 @@
 var App = function() {
   "use strict";
 
+  var widgets = {};
+
   return {init: init};
 
   function getId() {
@@ -333,12 +335,26 @@ var App = function() {
   }
 
   function init() {
+    initWidgets();
     initLayout();
     initComponent();
     initSelectPath();
     initDatePicker();
     initBackToTop();
     initWidgetsLayout();
+  }
+
+  function initWidgets() {
+    $.get('/api/ui-widget/list', {async: false}, function(json) {
+      if (!json.isError) {
+        var data = json.data;
+        for (var i = 0; i < data.length; ++i) {
+          var name = data[i].name;
+          var tpl = data[i].tpl;
+          widgets[name] = tpl;
+        }
+      }
+    });
   }
 
   function showDataSourceOpt(ds, $daveWidget) {

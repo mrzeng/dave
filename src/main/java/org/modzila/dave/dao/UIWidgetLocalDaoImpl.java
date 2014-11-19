@@ -23,6 +23,7 @@ public class UIWidgetLocalDaoImpl implements UIWidgetDao {
         File uiWidgetHome = new File(tplHome, "ui-widget");
         for (File f : uiWidgetHome.listFiles()) {
             UIWidget uiWidget = UIWidget.loadFrom(f);
+            uiWidgets.add(uiWidget);
         }
         return uiWidgets;
     }
