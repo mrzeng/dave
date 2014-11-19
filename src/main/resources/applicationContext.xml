@@ -63,4 +63,10 @@
       <value>data/datasource</value>
     </constructor-arg>
   </bean>
+
+  <bean id="tplHome" class="java.lang.String">
+    <constructor-arg>
+      <value>data/tpl</value>
+    </constructor-arg>
+  </bean>
 </beans>

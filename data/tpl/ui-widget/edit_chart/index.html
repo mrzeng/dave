@@ -1,0 +1,154 @@
+<div class="panel panel-default">
+  <div class="panel-heading dave-header">
+    <nav>
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <div class="panel-title">
+            <i class="fa fa-photo" style="margin-right: 10px;"></i>
+            <span></span>
+            <div class="input-group" style="display: none">
+              <input type="text" placeholder="图表名称...">
+              <span class="input-group-addon">
+                <i class="fa fa-pencil"></i>
+              </span>
+            </div>
+          </div>
+        </div>
+        <ul class="nav navbar-nav pull-right">
+          <li>
+            <a href="javascript:void(0);" class="dave-hide">
+              <i class="fa fa-minus"></i>
+            </a>
+          </li>
+          <li style="display: none">
+            <a href="javascript:void(0);" class="dave-expand">
+              <i class="fa fa-plus"></i>
+            </a>
+          </li>
+          <li>
+            <a href="javascript:void(0);" class="dave-settings">
+              <i class="fa fa-cog"></i>
+            </a>
+          </li>
+          <li style="display: none">
+            <a href="javascript:void(0);" class="dave-view">
+              <i class="fa fa-eye"></i>
+            </a>
+          </li>
+          <li>
+            <a href="javascript:void(0);" class="dave-remove">
+              <i class="fa fa-times"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+  </div>
+  <div class="dave-body panel-body">
+    // dave-config begin
+    <div class="dave-config" style="display: none">
+      <div class="form-horizontal">
+        <div class="form-group">
+          <label class="col-sm-2 control-label">宽度</label>
+          <div class="col-sm-10">
+            <select class="form-control select-width">
+              <option value="col-md-12">1/1宽</option>
+              <option value="col-md-8">2/3宽</option>
+              <option value="col-md-6">1/2宽</option>
+              <option value="col-md-4">1/3宽</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-2 control-label">描述</label>
+          <div class="col-sm-10">
+            <textarea cols="10" rows="2" class="form-control" data-label="description">
+            </textarea>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-2 control-label">类型</label>
+          <div class="col-sm-10">
+            <select class="form-control" data-label="type">
+              <option value="line">直线图</option>
+              <option value="area">区域图</option>
+              <option value="bar">条形图</option>
+              <option value="pie">饼图</option>
+              <option value="column">柱状图</option>
+              <option value="spline">曲线图</option>
+              <option value="areaspline">曲线区域图</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-2 control-label">数据源</label>
+          <div class="col-sm-10">
+            <select class="form-control form-selector" data-label="datasource">
+              <option value="MySQL">MySQL</option>
+              <option value="MSSQL">MSSQL</option>
+              <option value="Kettle">Kettle</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group" style="display: none">
+          <label class="col-sm-2 control-label">文件</label>
+          <div class="col-sm-10">
+            <div class="kettle">上传文件</div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-2 control-label">主机名</label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control" data-label="hostname" data-required="true">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-2 control-label">端口号</label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control" data-label="port" data-required="true">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-2 control-label">用户名</label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control" data-label="username" data-required="true">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-2 control-label">密码</label>
+          <div class="col-sm-10">
+            <div class="input-group" style="width: 100%">
+              <input type="password" class="form-control" data-label="password" data-required="true">
+              <span class="input-group-btn">
+                <button class="btn btn-default show-passwd" type="button">
+                  <i class="fa fa-eye"></i>
+                </button>
+              </span>
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-2 control-label">SQL</label>
+          <div class="col-sm-10">
+            <textarea cols="10" rows="5" class="form-control" data-label="sql">
+            </textarea>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="pull-right" style="margin-right: 15px;">
+            <button class="btn btn-warning btn-cancel" style="margin-right: 10px">取消</button>
+            <button class="btn btn-primary btn-sure">确定</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    // dave-config end
+    <div class="dave-content">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="widget-container"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
