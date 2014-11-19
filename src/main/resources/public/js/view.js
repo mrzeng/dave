@@ -33,7 +33,7 @@ var App = function() {
    */
   function initTableWidgetLayout(id, width) {
     var tableWidget = '<div class="dave-widget" id="' + id + '" data-widget-type="table">';
-    tableWidget += widgets['edit_table'];
+    tableWidget += widgets['view_table'];
     tableWidget += '</div>';
     $('.content-wrapper').append(tableWidget);
     var $tableWidget = $('#' + id);
@@ -50,7 +50,7 @@ var App = function() {
    */
   function initChartWidgetLayout(id, width) {
     var chartWidget = '<div class="dave-widget" id="' + id + '" data-widget-type="chart">';
-    chartWidget += widgets['edit_chart'];
+    chartWidget += widgets['view_chart'];
     chartWidget += '</div>';
     $('.content-wrapper').append(chartWidget);
     var $chartWidget = $('#' + id);
