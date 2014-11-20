@@ -2,18 +2,14 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>Dave数据分析可视化引擎</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="可自定义的数据分析可视化引擎">
-    <meta name="author" content="yanshuai@sartisty.name">
-
+    <title>Dave&#x6570;&#x636e;&#x5206;&#x6790;&#x53ef;&#x89c6;&#x5316;&#x5f15;&#x64ce;</title>
     <link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
     <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
     <link rel="stylesheet" href="/assets/bootstrap-modal-2.2.5/css/bootstrap-modal-bs3patch.css" type="text/css">
     <link rel="stylesheet" href="/assets/bootstrap-modal-2.2.5/css/bootstrap-modal.css" type="text/css">
     <link href="/css/app.css" rel="stylesheet">
     <link href="/css/app-responsive.css" rel="stylesheet">
-
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
       <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
@@ -25,7 +21,7 @@
     <header class="header">
       <div class="container-fluid">
         <a class="avatar" href="http://www.sartisty.name">
-          <img src="https://avatars0.githubusercontent.com/u/745813?v=2&amp;s=30" alt="头像" title="yanshuai's photo">
+          <img src="https://avatars0.githubusercontent.com/u/745813?v=2&amp;s=30" alt="photo" title="yanshuai's photo">
         </a>
 
         <a href="/index.html" class="logo">
@@ -54,20 +50,20 @@
         <div class="content-wrapper" style="margin-top: 0px;">
           <div id="content-title">
             <h3>Dashboard Directory</h3>
-            <span>可被访问的dashboard集合</span>
+            <span>&#x53ef;&#x88ab;&#x8bbf;&#x95ee;&#x7684;dashboard&#x96c6;&#x5408;</span>
           </div>
           <div class="paginate">
             <div id="previous" style="display: inline-block">
-              <span>前一页</span>
-              <a href="javascript:void(0);" style="display: none">前一页</a>
+              <span>&#x524d;&#x4e00;&#x9875;</span>
+              <a href="javascript:void(0);" style="display: none">&#x524d;&#x4e00;&#x9875;</a>
             </div>
             <span>/</span>
             <div id="next" style="display: inline-block">
-              <span>后一页</span>
-              <a href="javascript:void(0);" style="display: none">后一页</a>
+              <span>&#x540e;&#x4e00;&#x9875;</span>
+              <a href="javascript:void(0);" style="display: none">&#x540e;&#x4e00;&#x9875;</a>
             </div>
             <div class="pull-right">
-              <span>显示</span>
+              <span>&#x663e;&#x793a;</span>
               <span id="iDisplayStart"></span>
               <span>-</span>
               <span id="iDisplayEnd"></span>
@@ -77,7 +73,7 @@
             <div class="row dashboard">
               <div class="col-md-3 panel-new-dashboard">
                 <div class="panel panel-default">
-                  <div id="add-dashboard" title="新增dashboard">
+                  <div id="add-dashboard" title="&#x65b0;&#x589e;dashboard">
                     <div class="fa fa-plus">
                     </div>
                   </div>
@@ -92,7 +88,7 @@
     <footer>
       <div class="container-fluid">
         <a class="avatar" href="http://www.sartisty.name">
-          <img src="https://avatars0.githubusercontent.com/u/745813?v=2&amp;s=30" alt="头像" title="yanshuai's photo">
+          <img src="https://avatars0.githubusercontent.com/u/745813?v=2&amp;s=30" alt="photo" title="yanshuai's photo">
         </a>
         <span> © 2014 Modzila - Let's make a difference</span>
         <div id="site-icons" class="pull-right">
@@ -104,7 +100,7 @@
             <div class="popover top">
               <div class="arrow"></div>
               <label>QQ: 156411433</label>
-              <p><i>扫码加QQ</i></p>
+              <p><i>&#x626b;&#x7801;&#x52a0;QQ</i></p>
               <div id="qrcode-qq"></div>
             </div>
           </a>
@@ -118,10 +114,10 @@
     <div class="modal fade" id="modal-delete-dashboard" role="dialog"
          aria-hidden="false" data-keyboard="false" data-backdrop="static">
       <div class="modal-header">
-        <span>提示</span>
+        <span>&#x63d0;&#x793a;</span>
       </div>
       <div class="modal-body" style="text-align: center">
-        <div style="margin-bottom: 20px;">&#x786e;&#x8ba4;&#x5220;&#x9664;吗？（&#x5220;&#x9664;后将无法找回）</div>
+        <div style="margin-bottom: 20px;">&#x786e;&#x8ba4;&#x5220;&#x9664;&#x5417;&#xff1f;&#xff08;&#x5220;&#x9664;&#x540e;&#x5c06;&#x65e0;&#x6cd5;&#x627e;&#x56de;&#xff09;</div>
         <div>
           <button class="btn btn-sm btn-warning btn-delete-cancel">&#x53d6;&#x6d88;</button>
           <button class="btn btn-sm btn-danger btn-delete-sure">&#x786e;&#x5b9a;</button>
