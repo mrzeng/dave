@@ -12,17 +12,17 @@
     <widget>
       <id>widget-1f7d601f-c948-48dc-99c0-8fc776ea902f</id>
       <type>chart</type>
-      <width>col-md-6</width>
+      <width>col-md-4</width>
     </widget>
     <widget>
       <id>widget-67d0a1e3-3464-4b52-a6f8-751cbfe8df85</id>
       <type>chart</type>
-      <width>col-md-6</width>
+      <width>col-md-4</width>
     </widget>
     <widget>
       <id>widget-3b50b49b-878d-4652-acf3-6cc25e157e23</id>
       <type>chart</type>
-      <width>col-md-6</width>
+      <width>col-md-4</width>
     </widget>
     <widget>
       <id>widget-99db6d7a-3c76-423c-82d9-8e4a41dbf688</id>

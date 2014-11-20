@@ -3,12 +3,13 @@ package org.modzila.dave.dao;
 import org.modzila.dave.model.ChartWidget;
 import org.modzila.dave.model.TableWidget;
 import org.modzila.dave.model.Widget;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import static org.testng.Assert.*;
 import org.testng.annotations.Test;
 
-@ContextConfiguration(locations = {"classpath:spring/applicationContext.xml"})
+@ContextConfiguration(locations = {"classpath:spring/applicationContext-test.xml"})
 public class WidgetLocalXmlDaoImplTest extends AbstractTestNGSpringContextTests {
 
     @Test
@@ -55,10 +56,7 @@ public class WidgetLocalXmlDaoImplTest extends AbstractTestNGSpringContextTests 
         widget.setSql("select 1");
         dao.dump(widget, null);
     }
-    
-    public WidgetLocalXmlDaoImplTest() {
-        dao = new WidgetLocalXmlDaoImpl();
-    }
 
-    private final WidgetLocalXmlDaoImpl dao;    
+    @Autowired
+    private WidgetLocalXmlDaoImpl dao;    
 }

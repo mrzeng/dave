@@ -5,20 +5,14 @@ import java.util.Date;
 import org.modzila.dave.model.DashBoard;
 import org.modzila.dave.model.WidgetLayout;
 import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import static org.testng.Assert.*;
 import org.testng.annotations.Test;
 
-@ContextConfiguration(locations = {"classpath:spring/applicationContext.xml"})
+@ContextConfiguration(locations = {"classpath:spring/applicationContext-test.xml"})
 public class DashBoardLocalXmlDaoImplTest extends AbstractTestNGSpringContextTests {
-
-    @Test
-    public void testLoadFile() throws Exception {
-        File xml = new File(getClass().getResource("/data/dashboard.xml").getFile());
-        DashBoard dashboard = (DashBoard)(dao.load(xml));
-        dashboard.getId();
-    }
 
     @Test
     public void testLoad() throws Exception {
@@ -47,9 +41,6 @@ public class DashBoardLocalXmlDaoImplTest extends AbstractTestNGSpringContextTes
         dao.dump(dashboard, null);
     }
 
-    public DashBoardLocalXmlDaoImplTest() {
-        dao = new DashBoardLocalXmlDaoImpl();
-    }
-
-    private final DashBoardLocalXmlDaoImpl dao;
+    @Autowired
+    private DashBoardLocalXmlDaoImpl dao;
 }

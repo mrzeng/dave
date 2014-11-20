@@ -8,7 +8,7 @@ import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import static org.testng.Assert.*;
 import org.testng.annotations.Test;
 
-@ContextConfiguration(locations = {"classpath:spring/applicationContext.xml"})
+@ContextConfiguration(locations = {"classpath:spring/applicationContext-test.xml"})
 public class PathLocalXmlDaoImplTest extends AbstractTestNGSpringContextTests {
 
     @Test
@@ -39,6 +39,5 @@ public class PathLocalXmlDaoImplTest extends AbstractTestNGSpringContextTests {
     }
 
     @Autowired
-    @Qualifier("pathLocalXmlDao")
     private PathLocalXmlDaoImpl pathDao;
 }
