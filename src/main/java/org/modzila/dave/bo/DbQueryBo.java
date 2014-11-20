@@ -10,9 +10,7 @@ import java.util.Properties;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.datasource.SimpleDriverDataSource;
-import org.springframework.stereotype.Component;
 
-@Component
 public class DbQueryBo {
 
     public DbQueryBo() {

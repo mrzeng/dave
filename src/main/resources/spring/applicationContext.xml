@@ -40,33 +40,27 @@
     </property>
   </bean>
 
-  <bean id="dashboardHome" class="java.lang.String">
-    <constructor-arg>
-      <value>data/dashboard</value>
-    </constructor-arg>
+  <bean id="dbQueryBo" class="org.modzila.dave.bo.DbQueryBo">
   </bean>
 
-  <bean id="widgetHome" class="java.lang.String">
-    <constructor-arg>
-      <value>data/widget</value>
-    </constructor-arg>
+  <bean id="kettleQueryBo" class="org.modzila.dave.bo.KettleQueryBo">
   </bean>
 
-  <bean id="teamPath" class="java.lang.String">
-    <constructor-arg>
-      <value>data/path.xml</value>
-    </constructor-arg>
+  <bean id="uuidBo" class="org.modzila.dave.bo.UUIDBo">
   </bean>
 
-  <bean id="kettleHome" class="java.lang.String">
-    <constructor-arg>
-      <value>data/datasource</value>
-    </constructor-arg>
+  <bean id="dashboardLocalXmlDao" class="org.modzila.dave.dao.DashBoardLocalXmlDaoImpl">
   </bean>
 
-  <bean id="tplHome" class="java.lang.String">
-    <constructor-arg>
-      <value>data/tpl</value>
-    </constructor-arg>
+  <bean id="pathLocalXmlDao" class="org.modzila.dave.dao.PathLocalXmlDaoImpl">
+  </bean>
+
+  <bean id="UIWidgetDao" class="org.modzila.dave.dao.UIWidgetLocalDaoImpl">
+  </bean>
+
+  <bean id="widgetLocalXmlDao" class="org.modzila.dave.dao.WidgetLocalXmlDaoImpl">
+  </bean>
+
+  <bean class="org.modzila.dave.ConfigurationBean">
   </bean>
 </beans>

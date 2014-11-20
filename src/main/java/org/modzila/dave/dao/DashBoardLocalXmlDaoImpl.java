@@ -9,19 +9,16 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
+import org.modzila.dave.ConfigurationBean;
 import org.modzila.dave.model.DashBoardList;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.stereotype.Component;
 
-@Component("dashboardLocalXmlDao")
 public class DashBoardLocalXmlDaoImpl implements DashBoardDao {
 
     @Autowired
-    @Qualifier("dashboardHome")
-    private String dashboardHome;
+    private ConfigurationBean config;
 
     public DashBoardLocalXmlDaoImpl() {
         xstream = new XStream();
@@ -29,13 +26,9 @@ public class DashBoardLocalXmlDaoImpl implements DashBoardDao {
         xstream.alias("widget", WidgetLayout.class);
     }
 
-    public void setDashboardHome(String dashboardHome) {
-        this.dashboardHome = dashboardHome;
-    }
-
     public DashBoardList list(int iDisplayStart, int iDisplayLength) throws IOException {
         List<DashBoard> dashboards = new ArrayList<DashBoard>();
-        File dir = new File(dashboardHome);
+        File dir = new File(config.getDashboardHome());
         File[] files = dir.listFiles();
         int iDisplayEnd = iDisplayStart - 1 + iDisplayLength;
         for (int i = iDisplayStart - 1; i < iDisplayEnd && i < files.length; ++i) {
@@ -49,7 +42,7 @@ public class DashBoardLocalXmlDaoImpl implements DashBoardDao {
     }
  
     public DashBoard load(int index) throws Exception {
-        File dir = new File(dashboardHome);
+        File dir = new File(config.getDashboardHome());
         File[] files = dir.listFiles();
         if (index < files.length) {
             return load(files[index]);
@@ -59,7 +52,7 @@ public class DashBoardLocalXmlDaoImpl implements DashBoardDao {
     }
 
     public void delete(String path) throws Exception {
-        File xml = new File(dashboardHome, String.format("%s.xml", path));
+        File xml = new File(config.getDashboardHome(), String.format("%s.xml", path));
         xml.delete();
     }
 
@@ -67,8 +60,8 @@ public class DashBoardLocalXmlDaoImpl implements DashBoardDao {
         dump(dashboard, dashboard.getId());
     }
 
-    public DashBoard load(String path) {
-        File xml = new File(dashboardHome, String.format("%s.xml", path));
+    public DashBoard load(String path) throws IOException {
+        File xml = new File(config.getDashboardHome(), String.format("%s.xml", path));
         return load(xml);
     }
 
@@ -90,7 +83,7 @@ public class DashBoardLocalXmlDaoImpl implements DashBoardDao {
             String xml = xstream.toXML(dashboard);
             System.out.println(xml);
         } else {
-            File xmlPath = new File(dashboardHome, String.format("%s.xml", path));
+            File xmlPath = new File(config.getDashboardHome(), String.format("%s.xml", path));
             OutputStream os = null;
             try {
                 os = new FileOutputStream(xmlPath);

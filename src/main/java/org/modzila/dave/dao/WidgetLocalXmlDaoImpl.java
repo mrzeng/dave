@@ -8,16 +8,13 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import org.modzila.dave.ConfigurationBean;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.stereotype.Component;
 
-@Component("widgetLocalXmlDao")
 public class WidgetLocalXmlDaoImpl implements WidgetDao {
 
     @Autowired
-    @Qualifier("widgetHome")
-    private String widgetHome;
+    private ConfigurationBean config;
     
     public WidgetLocalXmlDaoImpl() {
         xstream = new XStream();
@@ -25,12 +22,8 @@ public class WidgetLocalXmlDaoImpl implements WidgetDao {
         xstream.alias("chart", ChartWidget.class);
     }
 
-    public void setWidgetHome(String widgetHome) {
-        this.widgetHome = widgetHome;
-    }
-
-    public synchronized Widget load(String path) {
-        File xml = new File(widgetHome, String.format("%s.xml", path));
+    public synchronized Widget load(String path) throws IOException {
+        File xml = new File(config.getWidgetHome(), String.format("%s.xml", path));
         if (xml.isFile()) {
             Widget widget = (Widget) xstream.fromXML(xml);
             return widget;
@@ -43,7 +36,7 @@ public class WidgetLocalXmlDaoImpl implements WidgetDao {
             String xml = xstream.toXML(widget);
             System.out.println(xml);
         } else {
-            File xmlPath = new File(widgetHome, String.format("%s.xml", path));
+            File xmlPath = new File(config.getWidgetHome(), String.format("%s.xml", path));
             OutputStream os = null;
             try {
                 os = new FileOutputStream(xmlPath);
@@ -57,7 +50,7 @@ public class WidgetLocalXmlDaoImpl implements WidgetDao {
     }
 
     public synchronized void remove(String id) throws Exception {
-        File xml = new File(widgetHome, String.format("%s.xml", id));
+        File xml = new File(config.getWidgetHome(), String.format("%s.xml", id));
         xml.delete();
     }
 

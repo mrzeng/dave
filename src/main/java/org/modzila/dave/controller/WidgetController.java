@@ -17,6 +17,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.regex.Matcher;
 import org.apache.commons.io.FileUtils;
+import org.modzila.dave.ConfigurationBean;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,8 +47,7 @@ public class WidgetController {
     private KettleQueryBo kettleQueryBo;
 
     @Autowired
-    @Qualifier("kettleHome")
-    private String kettleHome;
+    private ConfigurationBean config;
 
     private static final Logger LOG = LoggerFactory.getLogger(WidgetController.class);
 
@@ -140,7 +140,7 @@ public class WidgetController {
             @RequestParam("file") MultipartFile file) {
         try {
             String filename = file.getOriginalFilename();
-            File f = new File(kettleHome, filename);
+            File f = new File(config.getKettleHome(), filename);
             FileUtils.writeByteArrayToFile(f, file.getBytes());
             Widget widget = widgetDao.load(widgetId);
             widget.setDatasource("Kettle");
@@ -160,7 +160,7 @@ public class WidgetController {
         env.put("end_date", dateRange.getEndDate());
 
         if ("Kettle".equals(widget.getDatasource())) {
-            String ktr = String.format("%s/%s", kettleHome, widget.getKettle());
+            String ktr = String.format("%s/%s", config.getKettleHome(), widget.getKettle());
             return kettleQueryBo.query(ktr, env);
         } else {
             String sql = widget.getSql();

@@ -8,7 +8,7 @@ import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import static org.testng.Assert.*;
 import org.testng.annotations.Test;
 
-@ContextConfiguration(locations = {"classpath*:applicationContext.xml"})
+@ContextConfiguration(locations = {"classpath:spring/applicationContext.xml"})
 public class BeanConfigTest extends AbstractTestNGSpringContextTests {
 
     @Test

@@ -3,7 +3,6 @@ package org.modzila.dave.controller;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Date;
-import javax.validation.constraints.Min;
 import org.modzila.dave.bo.UUIDBo;
 import org.modzila.dave.dao.DashBoardDao;
 import org.modzila.dave.dao.WidgetDao;
@@ -76,9 +75,9 @@ public class DashBoardController {
     @RequestMapping(value = "/delete", method = RequestMethod.POST)
     @ResponseBody
     public Result deleteDashboard(@RequestParam("id") String id,
-            @RequestParam("iDisplayLength") @Min(0) int iDisplayLength,
-            @RequestParam("iDisplayStart") @Min(0) int iDisplayStart,
-            @RequestParam("iDisplayEnd") @Min(0) int iDisplayEnd) {
+            @RequestParam("iDisplayLength") int iDisplayLength,
+            @RequestParam("iDisplayStart") int iDisplayStart,
+            @RequestParam("iDisplayEnd") int iDisplayEnd) {
         try {
             List<DashBoard> dashboards = new ArrayList<DashBoard>();
             if (iDisplayStart < iDisplayEnd) {

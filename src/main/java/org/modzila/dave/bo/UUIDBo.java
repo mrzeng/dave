@@ -1,9 +1,7 @@
 package org.modzila.dave.bo;
 
 import java.util.UUID;
-import org.springframework.stereotype.Component;
 
-@Component
 public class UUIDBo {
 
     public String getWidgetUUID() {

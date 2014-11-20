@@ -5,34 +5,27 @@ import com.thoughtworks.xstream.XStream;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import org.modzila.dave.ConfigurationBean;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.stereotype.Component;
 
-@Component("pathLocalXmlDao")
 public class PathLocalXmlDaoImpl implements PathDao {
 
     @Autowired
-    @Qualifier("teamPath")
-    private String teamPath;
+    private ConfigurationBean config;
 
     public PathLocalXmlDaoImpl() {
         xstream = new XStream();
         xstream.alias("path", Path.class);
     }
 
-    public void setTeamPath(String teamPath) {
-        this.teamPath = teamPath;
-    }
-
     public String getRoot() throws Exception {
-        File xml = new File(teamPath);
+        File xml = new File(config.getTeamPath());
         Path root = (Path) xstream.fromXML(xml);
         return root.getName();
     }
 
     public List<String> getSubPath(String path) throws Exception {
-        File xml = new File(teamPath);
+        File xml = new File(config.getTeamPath());
         Path node = (Path) xstream.fromXML(xml);
         String[] paths = splitPaths(path);
         if (0 == paths.length || !node.getName().equals(paths[0])) {

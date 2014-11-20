@@ -4,21 +4,25 @@
   <groupId>org.modzila</groupId>
   <artifactId>dave</artifactId>
   <name>Dave</name>
+  <packaging>war</packaging>
   <version>1.0.7-Dev</version>
 
-  <parent>
-    <groupId>org.springframework.boot</groupId>
-    <artifactId>spring-boot-starter-parent</artifactId>
-    <version>1.1.5.RELEASE</version>
-  </parent>
-
   <properties>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <spring.version>4.0.6.RELEASE</spring.version>
+    <spring.security.version>3.2.5.RELEASE</spring.security.version>
+    <slf4j.version>1.7.6</slf4j.version>
     <pentaho.kettle.version>5.0.1-stable</pentaho.kettle.version>
-    <start-class>org.modzila.dave.Application</start-class>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
 
   <dependencies>
+    <!-- servlet -->
+    <dependency>
+      <groupId>javax.servlet</groupId>
+      <artifactId>servlet-api</artifactId>
+      <version>2.5</version>
+      <scope>provided</scope>
+    </dependency>
     <!-- for kettle -->
     <dependency>
       <groupId>pentaho-kettle</groupId>
@@ -66,6 +70,7 @@
     <dependency>
       <groupId>mysql</groupId>
       <artifactId>mysql-connector-java</artifactId>
+      <version>5.1.29</version>
     </dependency>
     <!-- for sql-server -->
     <dependency>
@@ -77,6 +82,7 @@
     <dependency>
       <groupId>joda-time</groupId>
       <artifactId>joda-time</artifactId>
+      <version>2.3</version>
     </dependency>
     <!-- xstream -->
     <dependency>
@@ -97,39 +103,82 @@
     </dependency>
     <dependency>
       <groupId>com.fasterxml.jackson.core</groupId>
+      <artifactId>jackson-core</artifactId>
+      <version>2.4.3</version>
+    </dependency>
+    <dependency>
+      <groupId>com.fasterxml.jackson.core</groupId>
       <artifactId>jackson-annotations</artifactId>
+      <version>2.4.3</version>
     </dependency>
     <!-- Spring framework -->
     <dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-starter-web</artifactId>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-core</artifactId>
+      <version>${spring.version}</version>
       <exclusions>
         <exclusion>
-          <groupId>org.springframework.boot</groupId>
-          <artifactId>spring-boot-starter-logging</artifactId>
+          <groupId>commons-logging</groupId>
+          <artifactId>commons-logging</artifactId>
         </exclusion>
       </exclusions>
     </dependency>
     <dependency>
       <groupId>org.springframework</groupId>
+      <artifactId>spring-web</artifactId>
+      <version>${spring.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-webmvc</artifactId>
+      <version>${spring.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-context</artifactId>
+      <version>${spring.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework</groupId>
       <artifactId>spring-jdbc</artifactId>
+      <version>${spring.version}</version>
+    </dependency>
+    <!-- Spring Security -->
+    <dependency>
+      <groupId>org.springframework.security</groupId>
+      <artifactId>spring-security-core</artifactId>
+      <version>${spring.security.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.security</groupId>
+      <artifactId>spring-security-web</artifactId>
+      <version>${spring.security.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.security</groupId>
+      <artifactId>spring-security-config</artifactId>
+      <version>${spring.security.version}</version>
     </dependency>
     <!-- logging -->
     <dependency>
       <groupId>org.slf4j</groupId>
       <artifactId>slf4j-api</artifactId>
+      <version>${slf4j.version}</version>
     </dependency>
     <dependency>
       <groupId>org.slf4j</groupId>
       <artifactId>slf4j-log4j12</artifactId>
+      <version>${slf4j.version}</version>
     </dependency>
     <dependency>
       <groupId>org.slf4j</groupId>
       <artifactId>jcl-over-slf4j</artifactId>
+      <version>${slf4j.version}</version>
     </dependency>
     <dependency>
       <groupId>log4j</groupId>
       <artifactId>log4j</artifactId>
+      <version>1.2.17</version>
       <scope>runtime</scope>
     </dependency>
     <!-- apache common lib -->
@@ -153,6 +202,7 @@
     <dependency>
       <groupId>org.springframework</groupId>
       <artifactId>spring-test</artifactId>
+      <version>${spring.version}</version>
       <scope>test</scope>
     </dependency>
   </dependencies>
@@ -168,17 +218,18 @@
         </configuration>
       </plugin>
       <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-shade-plugin</artifactId>
-        <version>2.3</version>
-        <executions>
-          <execution>
-            <phase>package</phase>
-            <goals>
-              <goal>shade</goal>
-            </goals>
-          </execution>
-        </executions>
+        <groupId>org.mortbay.jetty</groupId>
+        <artifactId>maven-jetty-plugin</artifactId>
+        <version>6.1.26</version>
+        <configuration>
+          <contextPath>/</contextPath>
+          <connectors>
+            <connector implementation="org.mortbay.jetty.nio.SelectChannelConnector">
+              <port>8880</port>
+            </connector>
+          </connectors>
+          <scanIntervalSeconds>10</scanIntervalSeconds>
+        </configuration>
       </plugin>
       <plugin>
         <groupId>com.elong.jspringbot</groupId>

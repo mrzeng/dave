@@ -10,9 +10,7 @@ import org.pentaho.di.core.RowMetaAndData;
 import org.pentaho.di.core.row.ValueMetaInterface;
 import org.pentaho.di.trans.Trans;
 import org.pentaho.di.trans.TransMeta;
-import org.springframework.stereotype.Component;
 
-@Component
 public class KettleQueryBo {
 
     public Object[][] query(String kettle, Map<String, String> env) throws Exception {

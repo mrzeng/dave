@@ -8,18 +8,16 @@ import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import static org.testng.Assert.*;
 import org.testng.annotations.Test;
 
-@ContextConfiguration(locations = {"classpath*:applicationContext.xml"})
+@ContextConfiguration(locations = {"classpath:spring/applicationContext.xml"})
 public class PathLocalXmlDaoImplTest extends AbstractTestNGSpringContextTests {
 
     @Test
     public void testGetRoot() throws Exception {
-        initTeamPath();
         assertEquals("modzila", pathDao.getRoot());
     }
 
     @Test
     public void testGetSubpath() throws Exception {
-        initTeamPath();
         List<String> subpaths = pathDao.getSubPath("/modzila");
         assertEquals("[jspringbot, dave, alex]", subpaths.toString());
         subpaths = pathDao.getSubPath("/modzila/jspringbot");
@@ -32,18 +30,12 @@ public class PathLocalXmlDaoImplTest extends AbstractTestNGSpringContextTests {
 
     @Test
     public void testSplitPaths() {
-        initTeamPath();
         String[] pathItems = pathDao.splitPaths("/modzila/jspringbot/jspringbot-selenium");
         String[] expected = {"modzila", "jspringbot", "jspringbot-selenium"};
         assertEquals(pathItems.length, expected.length);
         for (int i = 0; i < expected.length; ++i) {
             assertEquals(pathItems[i], expected[i]);
         }
-    }
-
-    public void initTeamPath() {
-        String teamPath = getClass().getResource("/data/path.xml").getFile();
-        pathDao.setTeamPath(teamPath);
     }
 
     @Autowired

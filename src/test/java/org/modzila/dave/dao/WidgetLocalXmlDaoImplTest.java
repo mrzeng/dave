@@ -3,10 +3,13 @@ package org.modzila.dave.dao;
 import org.modzila.dave.model.ChartWidget;
 import org.modzila.dave.model.TableWidget;
 import org.modzila.dave.model.Widget;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import static org.testng.Assert.*;
 import org.testng.annotations.Test;
 
-public class WidgetLocalXmlDaoImplTest {
+@ContextConfiguration(locations = {"classpath:spring/applicationContext.xml"})
+public class WidgetLocalXmlDaoImplTest extends AbstractTestNGSpringContextTests {
 
     @Test
     public void testLoad() throws Exception {
@@ -55,7 +58,6 @@ public class WidgetLocalXmlDaoImplTest {
     
     public WidgetLocalXmlDaoImplTest() {
         dao = new WidgetLocalXmlDaoImpl();
-        dao.setWidgetHome(getClass().getResource("/data").getFile());
     }
 
     private final WidgetLocalXmlDaoImpl dao;    

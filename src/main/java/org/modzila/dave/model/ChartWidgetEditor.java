@@ -1,9 +1,8 @@
 package org.modzila.dave.model;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import java.beans.PropertyEditorSupport;
 import java.io.IOException;
+import org.codehaus.jackson.map.ObjectMapper;
 
 public class ChartWidgetEditor extends PropertyEditorSupport {
 
@@ -22,7 +21,7 @@ public class ChartWidgetEditor extends PropertyEditorSupport {
     public String getAsText() {
         try {
             return objMapper.writeValueAsString(getValue());
-        } catch (JsonProcessingException ex) {
+        } catch (IOException ex) {
             return null;
         }
     }
