@@ -1,6 +1,5 @@
 package org.modzila.dave.dao;
 
-import java.io.File;
 import java.util.Date;
 import org.modzila.dave.model.DashBoard;
 import org.modzila.dave.model.WidgetLayout;

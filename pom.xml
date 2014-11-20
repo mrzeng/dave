@@ -53,6 +53,10 @@
           <groupId>commons-logging</groupId>
           <artifactId>commons-logging</artifactId>
         </exclusion>
+        <exclusion>
+          <groupId>org.owasp.esapi</groupId>
+          <artifactId>esapi</artifactId>
+        </exclusion>
       </exclusions>
     </dependency>
     <dependency>
