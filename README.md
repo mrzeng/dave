@@ -9,12 +9,12 @@ dave
 
 ```
 use test
-source src/main/resources/sqls/FINANCE.sql
+source src/main/resources/sqls/finance.sql
 ```
 
 ### 运行
 
-运行命令```mvn clean jetty:run```就会启动服务，打开浏览器，输入http://localhost:8880就可以访问dave了。
+运行命令```mvn clean jetty:run```就会启动服务，打开浏览器，输入```http://localhost:8880```就可以访问dave了。
 
 ### TODO
 
