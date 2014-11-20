@@ -65,7 +65,7 @@ public class DashBoardController {
             dashboard.setCategory(category);
             dashboard.setDescription(description);
             dashboardDao.add(dashboard);
-            return new Result(dashboard.getDate());
+            return new Result(dashboard);
         } catch (Exception ex) {
             LOG.error("Exception:", ex);
             return new Result(true, String.valueOf(ex));

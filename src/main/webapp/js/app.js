@@ -58,7 +58,6 @@ var Dave = function () {
       var iDisplayEnd = +($('#iDisplayEnd').text());
       $.post('/api/dashboard/add', dashboard, function (json) {
         if (!json.isError) {
-          dashboard.date = json.data;
           if (iDisplayEnd === iDisplayStart - 1 + iDisplayLength) {
             enableNextLink();
           } else {
@@ -68,6 +67,7 @@ var Dave = function () {
             ++iDisplayEnd;
           }
           updateInfo(iDisplayStart, iDisplayEnd);
+          dashboard = json.data;
           render(dashboard);
           $('#modal-new-dashboard').modal('hide');
         }
