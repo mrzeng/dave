@@ -1,4 +1,4 @@
-dave
+dave [![Build Status](https://travis-ci.org/modzila/dave.svg?branch=master)](https://travis-ci.org/modzila/dave)
 ====
 
 ### 预装环境
