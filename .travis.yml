@@ -4,7 +4,7 @@ jdk:
   - openjdk7
   - openjdk6
 before_install:
-  - export TZ=Asia/Beijing
+  - export TZ=Asia/Shanghai
   - date
 script: mvn clean test
 env: MAVEN_OPTS="-XX:MaxPermSize=128m"
