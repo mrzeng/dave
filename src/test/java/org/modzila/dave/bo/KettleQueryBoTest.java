@@ -14,12 +14,6 @@ public class KettleQueryBoTest extends AbstractTestNGSpringContextTests {
         kettleQueryBo.query(filename, null);
     }
 
-    @Test
-    public void testQualityViewQuery() throws Exception {
-        String filename = getClass().getResource("/data/datasource/quality view.ktr").getFile();
-        kettleQueryBo.query(filename, null);
-    }
-
     public KettleQueryBoTest() {
         kettleQueryBo = new KettleQueryBo();
     }
