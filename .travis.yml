@@ -8,3 +8,9 @@ before_install:
   - date
 script: mvn clean test
 env: MAVEN_OPTS="-XX:MaxPermSize=128m"
+notifications:
+  email:
+    recipients:
+      - sartisty@163.com
+    on_success: change
+    on_failure: always
