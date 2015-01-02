@@ -63,4 +63,7 @@
 
   <bean class="org.modzila.dave.ConfigurationBean">
   </bean>
+
+  <bean class="org.modzila.dave.event.ListenerServer" destroy-method="close">
+  </bean>  
 </beans>
