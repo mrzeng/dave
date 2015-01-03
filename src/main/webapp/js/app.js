@@ -7,7 +7,13 @@ var Dave = function () {
 
   function init() {
     initLayout();
+    initEvents();
     initDashboards();
+  }
+
+  function initEvents() {
+    $('.tooltips').tooltip();
+    $('.popovers').popover();
   }
 
   function initLayout() {
@@ -234,7 +240,10 @@ var Dave = function () {
     html += '<span>&times;</span>';
     html += '</button>';
     html += '</div>';
-    html += '<div class="date">' + new Date(dashboard.date).Format('yyyy-MM-dd hh:mm:ss') + '</div>';
+    html += '<div>';
+    html += '<span class="fa fa-calendar"></span>';
+    html += '<div class="date">' + moment(new Date(dashboard.date)).format("YYYY-MM-DD HH:mm:ss") + '</div>';
+    html += '</div>';
     html += '<div class="description">' + dashboard.description + '</div>';
     html += '<div class="actions">';
     html += '<button class="btn btn-sm btn-info btn-view">&#x67e5;&#x770b;</button>';

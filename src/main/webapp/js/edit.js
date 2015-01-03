@@ -380,6 +380,12 @@ var App = function() {
     initDatePicker();
     initBackToTop();
     initWidgetsLayout();
+    initEvents();
+  }
+
+  function initEvents() {
+    $('.tooltips').tooltip();
+    $('.popovers').popover();
   }
 
   function initWidgets() {

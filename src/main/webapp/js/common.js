@@ -57,7 +57,4 @@ var Script = function() {
       $(window).resize();
     }
   });
-
-  $('.tooltips').tooltip();
-  $('.popovers').popover();
 }();
