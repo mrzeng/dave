@@ -2,13 +2,25 @@ var Dave = function () {
   "use strict";
 
   var uuid;
+  var appViewTpl;
 
   return {init: init};
 
   function init() {
+    initTemplate();
     initLayout();
     initEvents();
     initDashboards();
+  }
+
+  function initTemplate() {
+    $.ajax({
+      url: "/template/app_view_tpl.html",
+      async: false,
+      success: function(data) {
+        appViewTpl = data;
+      }
+    });
   }
 
   function initEvents() {
@@ -232,26 +244,8 @@ var Dave = function () {
   }
 
   function render(dashboard) {
-    var html = '<div id="' + dashboard.id + '" class="col-md-3 dashboard">';
-    html += '<div class="panel panel-default">';
-    html += '<div class="panel-body">';
-    html += '<div class="name">' + dashboard.name;
-    html += '<button type="button" class="close btn-delete" title="删除dashboard">';
-    html += '<span>&times;</span>';
-    html += '</button>';
-    html += '</div>';
-    html += '<div>';
-    html += '<span class="fa fa-calendar"></span>';
-    html += '<div class="date">' + moment(new Date(dashboard.date)).format("YYYY-MM-DD HH:mm:ss") + '</div>';
-    html += '</div>';
-    html += '<div class="description">' + dashboard.description + '</div>';
-    html += '<div class="actions">';
-    html += '<button class="btn btn-sm btn-info btn-view">&#x67e5;&#x770b;</button>';
-    html += '<button class="btn btn-sm btn-success btn-edit">&#x7f16;&#x8f91;</button>';
-    html += '</div>';
-    html += '</div>';
-    html += '</div>';
-    html += '</div>';
+    dashboard.date = moment(new Date(dashboard.date)).format("YYYY-MM-DD HH:mm:ss");
+    var html = Mustache.to_html(appViewTpl, dashboard);
     $('.panel-new-dashboard').after(html);
   }
 }();
