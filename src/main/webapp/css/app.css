@@ -3,6 +3,20 @@ body {
   overflow-x: hidden;
   background-color: #fff;
 }
+
+body.loading:before {
+  content: ""; 
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  color: #666;
+  background: #fff url("img/loading.gif") center center no-repeat;
+  text-align: center;
+  z-index: 1000;
+}
+
 /*-- sidebar ---*/
 #sidebar {
   width: 210px;

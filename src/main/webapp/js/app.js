@@ -252,4 +252,5 @@ var Dave = function () {
 
 $(function () {
   Dave.init();
+  $('body').removeClass("loading");
 });
