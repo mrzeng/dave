@@ -16,10 +16,7 @@ public class DbQueryBo {
     public DbQueryBo() {
         properties = new Properties();
         properties.setProperty("autoReconnect", "true");
-        properties.setProperty("maxReconnects", "5");
-        properties.setProperty("initialTimeout", "2");
-        properties.setProperty("connectTimeout", "0");
-        properties.setProperty("socketTimeout", "0");
+        properties.setProperty("maxReconnects", "3");
     }
 
     public Object[][] query(String datasource, String hostname, int port,

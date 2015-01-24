@@ -112,6 +112,8 @@ ul.accordion li a i {
   line-height: 60px;
   background-color: #fff;
   padding-left: 15px;
+  padding-right: 15px;
+  margin-bottom: 0px;
   border-bottom: 1px solid #B7B7B7;
   z-index: 1004;
 }
