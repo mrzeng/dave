@@ -743,4 +743,5 @@ var App = function() {
 
 $(function() {
   App.init();
+  $('body').removeClass("loading");
 });
