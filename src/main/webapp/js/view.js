@@ -25,12 +25,6 @@ var App = function() {
     return $('#date-range span').html();
   }
 
-  /**
-   * 
-   * @param {type} id
-   * @param {type} width
-   * @returns {undefined}
-   */
   function initTableWidgetLayout(id, width) {
     var tableWidget = '<div class="dave-widget" id="' + id + '" data-widget-type="table">';
     tableWidget += widgets['view_table'];
@@ -42,12 +36,6 @@ var App = function() {
     $(window).resize();
   }
 
-  /**
-   * 
-   * @param {type} id
-   * @param {type} width
-   * @returns {undefined}
-   */
   function initChartWidgetLayout(id, width) {
     var chartWidget = '<div class="dave-widget" id="' + id + '" data-widget-type="chart">';
     chartWidget += widgets['view_chart'];
@@ -385,25 +373,6 @@ var App = function() {
   }
 
   function initLayout() {
-    $('.ui-sortable').sortable({
-      handle: '.dave-header'
-    });
-
-    $('.ui-sortable').on('mouseenter', '.dave-header', function() {
-      $(this).css({
-        cursor: 'move'
-      });
-      var $daveWidget = $(this).parents('.dave-widget');
-      $daveWidget.css({
-        border: '1px dashed #000'
-      });
-    }).on('mouseleave', '.dave-header', function() {
-      var $daveWidget = $(this).parents('.dave-widget');
-      $daveWidget.css({
-        border: '0px'
-      });
-    });
-
     $('.content-wrapper').on('change', '.form-selector', function() {
       var ds = $(this).val();
       var $daveWidget = $(this).parents('.dave-widget');
