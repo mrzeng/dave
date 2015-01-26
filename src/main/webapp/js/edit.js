@@ -377,8 +377,8 @@ var App = function() {
     initLayout();
     initComponent();
     initSelectPath();
-    initDatePicker();
-    initBackToTop();
+    $('#date-range').initDateRangePicker();
+    $.fn.initBackToTop();
     initWidgetsLayout();
     initEvents();
   }
@@ -386,6 +386,9 @@ var App = function() {
   function initEvents() {
     $('.tooltips').tooltip();
     $('.popovers').popover();
+    $('#date-range span').on('change', function() {
+      initWidgetsLayout();
+    });
   }
 
   function initWidgets() {
@@ -435,7 +438,7 @@ var App = function() {
     }).on('mouseleave', '.dave-header', function() {
       var $daveWidget = $(this).parents('.dave-widget');
       $daveWidget.css({
-        border: '0px'
+        border: '1px dashed #fff'
       });
     });
 
@@ -690,67 +693,6 @@ var App = function() {
     });
   }
 
-  function initDatePicker() {
-    $('#date-range span').html(moment().subtract('days', 7).format('YYYY/MM/DD')
-        + ' - ' + moment().subtract('days', -1).format('YYYY/MM/DD'));
-    $('#date-range').daterangepicker(
-        {
-          ranges: {
-            '今日': [moment(), moment()],
-            '昨日': [moment().subtract('days', 1), moment().subtract('days', 1)],
-            '本周': [moment().subtract('days', 6), moment()],
-            '本月': [moment().startOf('month'), moment().endOf('month')],
-            '上个月': [moment().subtract('month', 1).startOf('month'), moment().subtract('month', 1).endOf('month')]
-          },
-          opens: 'left',
-          locale: {
-            applyLabel: '确认',
-            cancelLabel: '取消',
-            fromLabel: '起始日期',
-            toLabel: '结束日期',
-            weekLabel: 'W',
-            customRangeLabel: '自定义日期范围',
-            daysOfWeek: ['日', '一', '二', '三', '四', '五', '六'],
-            monthNames: ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月'],
-            firstDay: 0
-          },
-          startDate: moment().subtract('days', 7),
-          endDate: moment().subtract('days', -1),
-          maxDate: moment().subtract('days', -1)
-        },
-        function(start, end) {
-          $('#date-range span').html(start.format('YYYY/MM/DD') + ' - ' + end.format('YYYY/MM/DD'));
-          initWidgetsLayout();
-        }
-    );
-  }
-
-  function initBackToTop() {
-    var backToTop = $('<a>', {
-      id: 'back-to-top',
-      href: '#top',
-      html: '<i class="fa fa-chevron-circle-up"></i>'
-    });
-    backToTop.appendTo('body');
-    backToTop.hide();
-
-    $(window).scroll(function() {
-      if ($(this).scrollTop() > 150) {
-        backToTop.fadeIn();
-      } else {
-        backToTop.fadeOut();
-      }
-    });
-
-    backToTop.click(function(e) {
-      e.preventDefault();
-
-      $('body, html').animate({
-        scrollTop: 0
-      }, 600);
-    });
-  }
-
   function initWidgetsLayout() {
     $('.content-wrapper').empty();
     $.getJSON('/api/dashboard/' + getId() + '/layout', function(json) {
@@ -773,7 +715,6 @@ var App = function() {
             drawChartWidget(widgetId);
           }
         };
-        $('.nav-wrapper').pin();
       }
     });
   }
@@ -781,4 +722,5 @@ var App = function() {
 
 $(function() {
   App.init();
+  $('body').removeClass("loading");
 });

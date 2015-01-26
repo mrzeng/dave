@@ -46,6 +46,16 @@ body.loading:before {
   padding-bottom: 10px;
 }
 
+.sidebar-logo {
+  padding-left: 50px;
+  margin-top: 20px;
+  margin-bottom: 50px;
+}
+
+ul.accordion {
+  margin-top: 10px;
+}
+
 ul.accordion , ul.accordion li ul.sub{
   padding: 0;
 }
@@ -120,8 +130,8 @@ ul.accordion li a i {
 
 .nav-wrapper {
   display: inline-block;
-  padding-right: 15px;
-  padding-top: 0px;
+  padding-right: 20px;
+  padding-left: 20px;
   width: 100%;
   border-bottom: 1px solid #E4E4E4;
   z-index: 1002;
@@ -196,18 +206,20 @@ a.logo span {
 }
 
 /*--- search ---*/
-#search {
+.search {
   width: 100%;
   text-align: center;
   position: relative;
   z-index: 15;
   padding-top: 10px;
 }
-#search form {
+
+.search form {
   margin: 0 15px;
   position: relative;
 }
-#search form #search-btn {
+
+.search form .search-btn {
   color: #393939;
   font-size: 15px;
   font-weight: 600;
@@ -216,12 +228,14 @@ a.logo span {
   top: 2px;
   background: transparent;
 }
-#search form #search-btn:hover,
-#search form #search-btn:focus {
+
+.search form .search-btn:hover,
+.search form .search-btn:focus {
   color: #bd2917;
   outline: none;
 }
-#search .form-control {
+
+.search .form-control {
   width: 210px;
   position: relative;
   top: 5px;
@@ -229,6 +243,14 @@ a.logo span {
   border-top-left-radius: 30px;
   border-bottom-right-radius: 30px;
   border-bottom-left-radius: 30px;
+}
+
+.search-sm .form-control {
+  width: 180px;
+}
+
+.search-sm form .search-btn {
+  left: 138px;
 }
 
 nav .container-fluid {
@@ -375,6 +397,7 @@ nav .container-fluid {
 .dave-widget {
   margin-bottom: 5px;
   padding-top: 5px;
+  border: 1px dashed #fff;
   background-color: #fff;
 }
 
@@ -430,6 +453,7 @@ span.input-group-addon {
 
 .panel-title span.input-group-addon {
   margin-top: -9px;
+  margin-left: -5px;
 }
 
 .btn-default:hover,
