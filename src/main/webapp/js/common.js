@@ -2,7 +2,7 @@ $.fn.extend({
   initDateRangePicker: function () {
     var $drp = $(this);
     var $elem = $drp.find('span');
-    $elem.html(moment().subtract('days', 7).format('YYYY/MM/DD')
+    $elem.text(moment().subtract('days', 7).format('YYYY/MM/DD')
         + ' - ' + moment().subtract('days', -1).format('YYYY/MM/DD'));
     $drp.daterangepicker(
         {
@@ -23,7 +23,7 @@ $.fn.extend({
           maxDate: moment().subtract('days', -1)
         },
     function (start, end) {
-      $elem.html(start.format('YYYY/MM/DD') + ' - ' + end.format('YYYY/MM/DD'));
+      $elem.text(start.format('YYYY/MM/DD') + ' - ' + end.format('YYYY/MM/DD')).trigger('change');
     });
   },
   initBackToTop: function () {
