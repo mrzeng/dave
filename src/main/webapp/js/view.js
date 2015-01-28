@@ -95,10 +95,14 @@ var App = function() {
       }
       $tableWidget.find('[data-label="' + key +'"]').val(value);
     }
+    var $container = $tableWidget.find('.widget-container');
+    drawLoading($container);
     $.getJSON('/api/widget/' + widgetData.id + '/data?path=' + getPath() + '&daterange=' + getDateRange(), function(json) {
       if (!json.isError) {
         var dt = json.data;
-        drawTableData($tableWidget.find('.widget-container'), $tableWidget.find('.table-filter-menu'), dt);
+        drawTableData($container, $tableWidget.find('.table-filter-menu'), dt);
+      } else {
+        drawErrorMessage($container, json.message);
       }
     });
   }
@@ -114,13 +118,27 @@ var App = function() {
       }
       $chartWidget.find('[data-label="' + key +'"]').val(value);
     }
+    var $container = $chartWidget.find('.widget-container');
+    drawLoading($container);
     $.getJSON('/api/widget/' + widgetData.id + '/data?path=' + getPath() + '&daterange=' + getDateRange(), function(json) {
       if (!json.isError) {
-        drawChartData($chartWidget.find('.widget-container'), widgetData.type, json.data);
+        drawChartData($container, widgetData.type, json.data);
+      } else {
+        drawErrorMessage($container, json.message);
       }
     });
   }
 
+  function drawLoading($container) {
+    $container.empty();
+    $container.html('<i class="fa fa-spinner fa-spin"></i><span style="margin-left: 5px">&#x6b63;&#x5728;&#x52aa;&#x529b;&#x52a0;&#x8f7d;&#x4e2d;...</span>');
+  }
+
+  function drawErrorMessage($container, message) {
+    $container.empty();
+    $container.html(message);
+  }
+ 
   function drawTableData($container, $menu, dt) {
     $container.empty();
     $menu.empty();
