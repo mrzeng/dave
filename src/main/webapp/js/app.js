@@ -15,7 +15,7 @@ var Dave = function () {
 
   function initTemplate() {
     $.ajax({
-      url: "/template/app_view_tpl.html",
+      url: "/tpl/app_view.html.tpl",
       async: false,
       success: function(data) {
         appViewTpl = data;
