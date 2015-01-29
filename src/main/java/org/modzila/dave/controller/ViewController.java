@@ -16,6 +16,6 @@ public class ViewController {
 
     @RequestMapping(value = "/dashboard/{id}", method = RequestMethod.GET)
     public String view(ModelMap model, Principal principal) {
-        return "dashboard/view";
+        return "view";
     }
 }

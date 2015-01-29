@@ -16,6 +16,6 @@ public class EditorController {
 
     @RequestMapping(value = "/dashboard/{id}", method = RequestMethod.GET)
     public String edit(ModelMap model, Principal principal) {
-        return "dashboard/edit";
+        return "edit";
     }
 }
