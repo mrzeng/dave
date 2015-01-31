@@ -14,11 +14,15 @@ import org.modzila.dave.model.DashBoardList;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 
 public class DashBoardLocalXmlDaoImpl implements DashBoardDao {
 
     @Autowired
     private ConfigurationBean config;
+
+    @Autowired
+    private ApplicationContext appContext;
 
     public DashBoardLocalXmlDaoImpl() {
         xstream = new XStream();
@@ -26,6 +30,7 @@ public class DashBoardLocalXmlDaoImpl implements DashBoardDao {
         xstream.alias("widget", WidgetLayout.class);
     }
 
+    @Override
     public DashBoardList list(int iDisplayStart, int iDisplayLength) throws IOException {
         List<DashBoard> dashboards = new ArrayList<DashBoard>();
         File dir = new File(config.getDashboardHome());
@@ -41,6 +46,7 @@ public class DashBoardLocalXmlDaoImpl implements DashBoardDao {
         return new DashBoardList(dashboards, files.length);
     }
  
+    @Override
     public DashBoard load(int index) throws Exception {
         File dir = new File(config.getDashboardHome());
         File[] files = dir.listFiles();
@@ -51,15 +57,18 @@ public class DashBoardLocalXmlDaoImpl implements DashBoardDao {
         }
     }
 
+    @Override
     public void delete(String path) throws Exception {
         File xml = new File(config.getDashboardHome(), String.format("%s.xml", path));
         xml.delete();
     }
 
+    @Override
     public void add(DashBoard dashboard) throws IOException {
         dump(dashboard, dashboard.getId());
     }
 
+    @Override
     public DashBoard load(String path) throws IOException {
         File xml = new File(config.getDashboardHome(), String.format("%s.xml", path));
         return load(xml);
@@ -78,6 +87,7 @@ public class DashBoardLocalXmlDaoImpl implements DashBoardDao {
         return null;
     }
 
+    @Override
     public void dump(DashBoard dashboard, String path) throws IOException {
         if (null == path) {
             String xml = xstream.toXML(dashboard);

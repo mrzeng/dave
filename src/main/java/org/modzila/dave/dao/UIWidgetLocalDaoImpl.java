@@ -8,10 +8,6 @@ import org.modzila.dave.ConfigurationBean;
 import org.modzila.dave.model.UIWidget;
 import org.springframework.beans.factory.annotation.Autowired;
 
-/**
- *
- * @author yanshuai
- */
 public class UIWidgetLocalDaoImpl implements UIWidgetDao {
 
     @Autowired

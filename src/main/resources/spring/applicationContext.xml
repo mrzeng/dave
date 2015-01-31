@@ -9,27 +9,4 @@
         http://www.springframework.org/schema/context/spring-context-4.0.xsd
         http://www.springframework.org/schema/mvc
         http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd">
-  <bean id="dbQueryBo" class="org.modzila.dave.bo.DbQueryBo">
-  </bean>
-
-  <bean id="kettleQueryBo" class="org.modzila.dave.bo.KettleQueryBo">
-  </bean>
-
-  <bean id="uuidBo" class="org.modzila.dave.bo.UUIDBo">
-  </bean>
-
-  <bean id="dashboardLocalXmlDao" class="org.modzila.dave.dao.DashBoardLocalXmlDaoImpl">
-  </bean>
-
-  <bean id="pathLocalXmlDao" class="org.modzila.dave.dao.PathLocalXmlDaoImpl">
-  </bean>
-
-  <bean id="UIWidgetDao" class="org.modzila.dave.dao.UIWidgetLocalDaoImpl">
-  </bean>
-
-  <bean id="widgetLocalXmlDao" class="org.modzila.dave.dao.WidgetLocalXmlDaoImpl">
-  </bean>
-
-  <bean class="org.modzila.dave.ConfigurationBean">
-  </bean>
 </beans>

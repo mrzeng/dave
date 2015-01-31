@@ -10,10 +10,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-/**
- *
- * @author yanshuai
- */
 @Controller
 @RequestMapping(value = "/api/ui-widget")
 public class UIWidgetController {
