@@ -9,37 +9,6 @@
         http://www.springframework.org/schema/context/spring-context-4.0.xsd
         http://www.springframework.org/schema/mvc
         http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd">
-  <context:component-scan base-package="org.modzila.dave.controller,org.modzila.dave.bo,org.modzila.dave.dao" />
-
-  <mvc:annotation-driven conversion-service="conversionService" />
-  <mvc:default-servlet-handler />
-
-  <mvc:interceptors>
-    <mvc:interceptor>
-      <mvc:mapping path="/api/**"/>
-      <bean class="org.modzila.dave.ConsoleHandlerInterceptor">                
-      </bean>
-    </mvc:interceptor>
-  </mvc:interceptors>
-
-  <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-    <property name="prefix">
-      <value>/</value>
-    </property>
-    <property name="suffix">
-      <value>.html</value>
-    </property>
-  </bean>
-
-  <bean id="conversionService" class="org.springframework.format.support.FormattingConversionServiceFactoryBean">
-    <property name="formatters">
-      <list>
-        <bean class="org.modzila.dave.DateRangeAnnotationFormatterFactory">
-        </bean>
-      </list>
-    </property>
-  </bean>
-
   <bean id="dbQueryBo" class="org.modzila.dave.bo.DbQueryBo">
   </bean>
 
