@@ -162,7 +162,8 @@ var App = function() {
       $('.' + colId).hide();
     });
 
-    var dom = '<thead>';
+    var dom = '<table class="table table-striped table-hover table-highlight">';
+    dom += '<thead>';
     dom += '<tr>';
     for (var i = 0; i < dt[0].length; ++i) {
       dom += '<td class="col-' + i + '">';
@@ -182,6 +183,7 @@ var App = function() {
       dom += '</tr>';
     }
     dom += '</tbody>';
+    dom += '</table>';
     $container.append(dom);
     $(window).resize();
   }

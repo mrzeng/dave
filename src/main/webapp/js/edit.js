@@ -25,12 +25,6 @@ var App = function() {
     return $('#date-range span').html();
   }
 
-  /**
-   * 
-   * @param {type} id
-   * @param {type} width
-   * @returns {undefined}
-   */
   function initTableWidgetLayout(id, width) {
     var tableWidget = '<div class="dave-widget" id="' + id + '" data-widget-type="table">';
     tableWidget += widgets['edit_table'];
@@ -61,12 +55,6 @@ var App = function() {
     $(window).resize();
   }
 
-  /**
-   * 
-   * @param {type} id
-   * @param {type} width
-   * @returns {undefined}
-   */
   function initChartWidgetLayout(id, width) {
     var chartWidget = '<div class="dave-widget" id="' + id + '" data-widget-type="chart">';
     chartWidget += widgets['edit_chart'];
@@ -194,8 +182,8 @@ var App = function() {
       $('.' + colId).hide();
     });
 
-    var dom = '<thead>';
-    dom += '<tr>';
+    var dom = '<table class="table table-striped table-hover table-highlight">';
+    dom += '<thead>';
     for (var i = 0; i < dt[0].length; ++i) {
       dom += '<td class="col-' + i + '">';
       dom += dt[0][i];
@@ -214,6 +202,7 @@ var App = function() {
       dom += '</tr>';
     }
     dom += '</tbody>';
+    dom += '</table>';
     $container.append(dom);
     $(window).resize();
   }
@@ -480,11 +469,20 @@ var App = function() {
     });
 
     $('.content-wrapper').on('click', '.dave-settings', function() {
+      $('#main-content').attr('style', 'margin-right: 500px');
+      $('#right-sidebar').show();
+      $('#left-sidebar').hide();
+      $('.content-wrapper').children().hide();
       var $daveWidget = $(this).parents('.dave-widget');
+      $daveWidget.show();
       showWidgetConfig($daveWidget);
     });
 
     $('.content-wrapper').on('click', '.btn-cancel', function() {
+      $('#main-content').attr('style', 'margin-left: 210px');
+      $('#right-sidebar').hide();
+      $('#left-sidebar').show();
+      $('.content-wrapper').children().show();
       var $daveWidget = $(this).parents('.dave-widget');
       showWidgetContent($daveWidget);
       if ('table' === $daveWidget.attr('data-widget-type')) {
