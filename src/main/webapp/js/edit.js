@@ -493,6 +493,10 @@ var App = function() {
     });
     
     $('.content-wrapper').on('click', '.btn-sure', function() {
+      $('#main-content').attr('style', 'margin-left: 210px');
+      $('#right-sidebar').hide();
+      $('#left-sidebar').show();
+      $('.content-wrapper').children().show();
       var $daveWidget = $(this).parents('.dave-widget');
       var widgetId = $daveWidget.attr('id');
       var data = {};
