@@ -67,13 +67,6 @@ var App = function() {
     var $tableWidget = $('#' + widgetData.id);
     $tableWidget.find('.panel-title').children('span').html(widgetData.name);
     $tableWidget.find('.panel-title input').val(widgetData.name);
-    for (var key in widgetData) {
-      var value = widgetData[key];
-      if ('datasource' === key) {
-        showDataSourceOpt(value, $tableWidget);
-      }
-      $tableWidget.find('[data-label="' + key +'"]').val(value);
-    }
     var $container = $tableWidget.find('.widget-container');
     drawLoading($container);
     $.getJSON('/api/widget/' + widgetData.id + '/data?path=' + getPath() + '&daterange=' + getDateRange(), function(json) {
@@ -90,13 +83,6 @@ var App = function() {
     var $chartWidget = $('#' + widgetData.id);
     $chartWidget.find('.panel-title').children('span').html(widgetData.name);
     $chartWidget.find('.panel-title input').val(widgetData.name);
-    for (var key in widgetData) {
-      var value = widgetData[key];
-      if ('datasource' === key) {
-        showDataSourceOpt(value, $chartWidget);
-      }
-      $chartWidget.find('[data-label="' + key +'"]').val(value);
-    }
     var $container = $chartWidget.find('.widget-container');
     drawLoading($container);
     $.getJSON('/api/widget/' + widgetData.id + '/data?path=' + getPath() + '&daterange=' + getDateRange(), function(json) {
@@ -322,9 +308,8 @@ var App = function() {
   }
 
   function init() {
-    initWidgets();
+    loadTemplates();
     initLayout();
-    initComponent();
     initSelectPath();
     $('#date-range').initDateRangePicker();
     $.fn.initBackToTop();
@@ -340,7 +325,7 @@ var App = function() {
     });
   }
 
-  function initWidgets() {
+  function loadTemplates() {
     $.get('/api/ui-widget/list', {async: false}, function(json) {
       if (!json.isError) {
         var data = json.data;
@@ -354,182 +339,7 @@ var App = function() {
   }
 
   function initLayout() {
-    $('.content-wrapper').on('change', '.form-selector', function() {
-      var ds = $(this).val();
-      var $daveWidget = $(this).parents('.dave-widget');
-      showDataSourceOpt(ds, $daveWidget);
-    });
-
-    $('.content-wrapper').on('click', '.show-passwd', function() {
-      var $daveWidget = $(this).parents('.dave-widget');
-      var $password = $daveWidget.find('[data-label="password"]');
-      $password.attr('type', 'text');
-      $(this).removeClass('show-passwd');
-      $(this).addClass('hide-passwd');
-      $(this).find('i').removeClass('fa-eye').addClass('fa-lock');
-    });
-
-    $('.content-wrapper').on('click', '.hide-passwd', function() {
-      var $daveWidget = $(this).parents('.dave-widget');
-      var $password = $daveWidget.find('[data-label="password"]');
-      $password.attr('type', 'password');
-      $(this).removeClass('hide-passwd');
-      $(this).addClass('show-passwd');
-      $(this).find('i').removeClass('fa-lock').addClass('fa-eye');
-    });
-
-    $('.content-wrapper').on('change', '.select-width', function() {
-      var $daveWidget = $(this).parents('.dave-widget');
-      var id = $daveWidget.attr('id');
-      var width = $(this).val();
-      $.post('/api/dashboard/' + getId() + '/layout/' + id + '/update', {width: width}, function(json) {
-        if (!json.isError) {
-          $daveWidget.prop('class', 'dave-widget');
-          $daveWidget.addClass(width);
-          $daveWidget.attr('data-widget-width', width);
-        }
-      });
-    });
-
-    $('.content-wrapper').on('click', '.dave-settings', function() {
-      var $daveWidget = $(this).parents('.dave-widget');
-      showWidgetConfig($daveWidget);
-    });
-
-    $('.content-wrapper').on('click', '.btn-cancel', function() {
-      var $daveWidget = $(this).parents('.dave-widget');
-      showWidgetContent($daveWidget);
-      if ('table' === $daveWidget.attr('data-widget-type')) {
-        drawTableWidget($daveWidget.attr('id'));
-      } else if ('chart' === $daveWidget.attr('data-widget-type')) {
-        drawChartWidget($daveWidget.attr('id'));
-      }
-    });
     
-    $('.content-wrapper').on('click', '.btn-sure', function() {
-      var $daveWidget = $(this).parents('.dave-widget');
-      var widgetId = $daveWidget.attr('id');
-      var data = {};
-      $.each($daveWidget.find('[data-label]'), function() {
-        var key = $(this).attr('data-label');
-        var value = $(this).val();
-        data[key] = value;
-      });
-      data.id = widgetId;
-      data.name = $daveWidget.find('.panel-title').children('span').html();
-      if ('table' === $daveWidget.attr('data-widget-type')) {
-        $.post('/api/widget/' + widgetId + '/table/update', {
-          'widget': JSON.stringify(data),
-          'path': getPath(),
-          'daterange': getDateRange()
-        }, function(json) {
-          if (!json.isError) {
-            drawTableData($daveWidget.find('.widget-container'), $daveWidget.find('.table-filter-menu'), json.data);
-            showWidgetContent($daveWidget);
-          }
-        });
-      } else if ('chart' === $daveWidget.attr('data-widget-type')) {
-        $.post('/api/widget/' + widgetId + '/chart/update', {
-          'widget': JSON.stringify(data),
-          'path': getPath(),
-          'daterange': getDateRange()
-        }, function(json) {
-          if (!json.isError) {
-            var type = $daveWidget.find('[data-label="type"]').val();
-            drawChartData($daveWidget.find('.widget-container'), type, json.data);
-            showWidgetContent($daveWidget);
-          }
-        });
-      }
-    });
-
-    $('.content-wrapper').on('click', '.dave-view', function() {
-      var $daveWidget = $(this).parents('.dave-widget');
-      var widgetId = $daveWidget.attr('id');
-      var data = {};
-      $.each($daveWidget.find('[data-label]'), function() {
-        var key = $(this).attr('data-label');
-        if ('type' !== key) {
-          var value = $(this).val();
-          data[key] = value;
-        }
-      });
-      data.id = widgetId;
-      data.name = $daveWidget.find('.panel-title').children('span').html();
-      if ('table' === $daveWidget.attr('data-widget-type')) {
-        $.getJSON('/api/widget/data?path=' + getPath() + '&daterange=' + getDateRange(), {'widget': JSON.stringify(data)}, function(json) {
-          if (!json.isError) {
-            drawTableData($daveWidget.find('.widget-container'), $daveWidget.find('.table-filter-menu'), json.data);
-            showWidgetContent($daveWidget);
-          }
-        });
-      } else if ('chart' === $daveWidget.attr('data-widget-type')) {
-        $.getJSON('/api/widget/data?path=' + getPath() + '&daterange=' + getDateRange(), {'widget': JSON.stringify(data)}, function(json) {
-          if (!json.isError) {
-            var type = $daveWidget.find('[data-label="type"]').val();
-            drawChartData($daveWidget.find('.widget-container'), type, json.data);
-            showWidgetContent($daveWidget);
-          }
-        });
-      }
-    });
-
-    $('.content-wrapper').on('click', '.dave-remove', function() {
-      var $daveWidget = $(this).parents('.dave-widget');
-      var daveWidgetId = $daveWidget.attr('id');
-      $.post('/api/dashboard/' + getId() + '/widget/' + daveWidgetId + '/remove', function(json) {
-        if (!json.isError) {
-          $daveWidget.remove();
-        }
-      });
-    });
-
-    $('.content-wrapper').on('click', '.dave-hide', function() {
-      var $daveWidget = $(this).parents('.dave-widget');
-      $daveWidget.find('.dave-body').hide();
-      $daveWidget.find('.dave-hide').parent().hide();
-      $daveWidget.find('.dave-expand').parent().show();
-    });
-
-    $('.content-wrapper').on('change', '.panel-title input', function() {
-      var value = $(this).val();
-      $(this).parent().siblings('span').html(value);
-    });
-
-    $('.content-wrapper').on('click', '.dave-expand', function() {
-      var $daveWidget = $(this).parents('.dave-widget');
-      $daveWidget.find('.dave-body').show();
-      $daveWidget.find('.dave-expand').parent().hide();
-      $daveWidget.find('.dave-hide').parent().show();
-    });
-  }
-
-  function initComponent() {
-    $('.dave-widget-table').on('click', function() {
-      $.post('/api/dashboard/' + getId() + '/widget/add', {type: 'table', width: 'col-md-12'}, function(json) {
-        if (!json.isError) {
-          var id = json.data;
-          initTableWidgetLayout(id, 'col-md-12');
-          var $widget = $('#' + id);
-          showWidgetConfig($widget);
-          $.scrollTo($widget, 800);
-          $(window).resize();
-        }
-      });
-    });
-  
-    $('.dave-widget-chart').on('click', function() {
-      $.post('/api/dashboard/' + getId() + '/widget/add', {type: 'chart', width: 'col-md-12'}, function(json) {
-        if (!json.isError) {
-          var id = json.data;
-          initChartWidgetLayout(id, 'col-md-12');
-          var $widget = $('#' + id);
-          showWidgetConfig($widget);
-          $.scrollTo($widget, 800);
-          $(window).resize();
-        }
-      });
-    });
   }
 
   function initPathRoot() {
