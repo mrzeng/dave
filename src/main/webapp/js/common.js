@@ -50,5 +50,20 @@ $.fn.extend({
         scrollTop: 0
       }, 600);
     });
+  },
+  drawTable: function() {
+    
+  },
+  drawPieChart: function() {
+    
+  },
+  drawLineChart: function() {
+    
+  },
+  drawAreaChart: function() {
+    
+  },
+  drawBarChart: function() {
+    
   }
 });

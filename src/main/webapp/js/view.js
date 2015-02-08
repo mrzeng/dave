@@ -1,7 +1,7 @@
 var App = function() {
   "use strict";
 
-  var widgets = {};
+  var templates = {};
 
   return {init: init};
 
@@ -27,7 +27,7 @@ var App = function() {
 
   function initTableWidgetLayout(id, width) {
     var tableWidget = '<div class="dave-widget" id="' + id + '" data-widget-type="table">';
-    tableWidget += widgets['view_table'];
+    tableWidget += templates['view_table'];
     tableWidget += '</div>';
     $('.content-wrapper').append(tableWidget);
     var $tableWidget = $('#' + id);
@@ -38,34 +38,13 @@ var App = function() {
 
   function initChartWidgetLayout(id, width) {
     var chartWidget = '<div class="dave-widget" id="' + id + '" data-widget-type="chart">';
-    chartWidget += widgets['view_chart'];
+    chartWidget += templates['view_chart'];
     chartWidget += '</div>';
     $('.content-wrapper').append(chartWidget);
     var $chartWidget = $('#' + id);
     $chartWidget.addClass(width);
     $chartWidget.attr('data-widget-width', width);
     $(window).resize();
-  }
-
-  function showWidgetContent($daveWidget) {
-    $daveWidget.find('.dave-config').hide();
-    $daveWidget.find('.dave-content').show();
-    $daveWidget.find('.dave-settings').parent().show();
-    $daveWidget.find('.dave-table-filter').parent().show();
-    $daveWidget.find('.dave-view').parent().hide();
-    $daveWidget.find('.panel-title .input-group').hide();
-    $daveWidget.find('.panel-title').children('span').show();
-    $(window).resize();
-  }
-
-  function showWidgetConfig($daveWidget) {
-    $daveWidget.find('.dave-config').show();
-    $daveWidget.find('.dave-content').hide();
-    $daveWidget.find('.dave-settings').parent().hide();
-    $daveWidget.find('.dave-table-filter').parent().hide();
-    $daveWidget.find('.dave-view').parent().show();
-    $daveWidget.find('.panel-title').children('span').hide();
-    $daveWidget.find('.panel-title .input-group').show();
   }
 
   function drawTableWidget(widgetId) {
@@ -131,7 +110,7 @@ var App = function() {
 
   function drawLoading($container) {
     $container.empty();
-    $container.html('<i class="fa fa-spinner fa-spin"></i><span style="margin-left: 5px">&#x6b63;&#x5728;&#x52aa;&#x529b;&#x52a0;&#x8f7d;&#x4e2d;...</span>');
+    $container.html(templates['loading']);
   }
 
   function drawErrorMessage($container, message) {
@@ -368,28 +347,10 @@ var App = function() {
         for (var i = 0; i < data.length; ++i) {
           var name = data[i].name;
           var tpl = data[i].tpl;
-          widgets[name] = tpl;
+          templates[name] = tpl;
         }
       }
     });
-  }
-
-  function showDataSourceOpt(ds, $daveWidget) {
-    if ('Kettle' === ds) {
-      $daveWidget.find('.kettle').parents('.form-group').show();
-      $daveWidget.find('[data-label="hostname"]').parents('.form-group').hide();
-      $daveWidget.find('[data-label="port"]').parents('.form-group').hide();
-      $daveWidget.find('[data-label="username"]').parents('.form-group').hide();
-      $daveWidget.find('[data-label="password"]').parents('.form-group').hide();
-      $daveWidget.find('[data-label="sql"]').parents('.form-group').hide();
-    } else {
-      $daveWidget.find('.kettle').parents('.form-group').hide();
-      $daveWidget.find('[data-label="hostname"]').parents('.form-group').show();
-      $daveWidget.find('[data-label="port"]').parents('.form-group').show();
-      $daveWidget.find('[data-label="username"]').parents('.form-group').show();
-      $daveWidget.find('[data-label="password"]').parents('.form-group').show();
-      $daveWidget.find('[data-label="sql"]').parents('.form-group').show();
-    }
   }
 
   function initLayout() {
