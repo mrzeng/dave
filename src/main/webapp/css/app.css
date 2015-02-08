@@ -31,7 +31,7 @@ body.loading:before {
   font-weight: 700;
 }
 
-.sidebar>ul>li {
+#left-sidebar>ul>li {
   position: relative;
   border-bottom: 2px solid #cccccc;
 }
@@ -55,6 +55,10 @@ body.loading:before {
   margin-right: 10px;
   top: 0px;
   right: 0px;
+  padding-top: 6px;
+  padding-left: 10px;
+  width: 500px;
+  border-bottom: 0;
 }
 
 #left-sidebar {
@@ -464,11 +468,6 @@ span.input-group-addon {
 .panel-title span.input-group-addon {
   margin-top: -9px;
   margin-left: -5px;
-}
-
-.btn-default:hover,
-.btn-default:focus {
-  background-color: #fff;
 }
 
 .input-group-btn:last-child>.btn {

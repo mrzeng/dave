@@ -378,6 +378,18 @@ var App = function() {
     $('#date-range span').on('change', function() {
       initWidgetsLayout();
     });
+    $('#nav-widget-datasource a').on('click', function() {
+      $('#nav-widget-datasource').addClass('active');
+      $('#nav-widget-styles').removeClass('active');
+      $('#widget-datasource').show();
+      $('#widget-styles').hide();
+    });
+    $('#nav-widget-styles a').on('click', function() {
+      $('#nav-widget-datasource').removeClass('active');
+      $('#nav-widget-styles').addClass('active');
+      $('#widget-datasource').hide();
+      $('#widget-styles').show();
+    });
   }
 
   function initWidgets() {
